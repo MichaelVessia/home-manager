@@ -1,5 +1,11 @@
 { config, pkgs, ... }:
 
+let
+  # Import nixGL for OpenGL support on non-NixOS systems
+  nixgl = import (fetchTarball "https://github.com/nix-community/nixGL/archive/main.tar.gz") {
+    inherit pkgs;
+  };
+in
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -14,6 +20,18 @@
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
   home.stateVersion = "25.05"; # Please read the comment before changing.
+
+  # Enable nixGL integration
+  nixGL.packages = nixgl;
+  
+  # Configure nixGL wrapper based on your GPU
+  # For Intel/AMD Mesa drivers:
+  nixGL.defaultWrapper = "mesa";
+  # For Nvidia proprietary drivers, uncomment the line below and comment out mesa:
+  # nixGL.defaultWrapper = "nvidia";
+  
+  # Install wrapper scripts
+  nixGL.installScripts = [ "mesa" ];  # Change to [ "nvidia" ] if using Nvidia
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -39,7 +57,18 @@
     pkgs.git
     # I tried to install brave via pkgs.brave and some other methods
     # I kept getting issues around sandboxing so i just used their installer
+    
+    # Install Ghostty wrapped with nixGL for proper OpenGL support
+    (config.lib.nixGL.wrap pkgs.ghostty)
+    
+    # Optional: Install some nice fonts for the terminal
+    pkgs.jetbrains-mono
+    pkgs.nerd-fonts.jetbrains-mono
+    pkgs.nerd-fonts.fira-code
   ];
+
+  # Enable font configuration
+  fonts.fontconfig.enable = true;
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -55,6 +84,32 @@
     #   org.gradle.daemon.idletimeout=3600000
     # '';
   };
+
+  # Configure Ghostty
+  xdg.configFile."ghostty/config".text = ''
+    # Font configuration
+    font-family = JetBrains Mono
+    font-size = 12
+    
+    # Theme (dark or light)
+    theme = dark
+    
+    # Background opacity (0.0 to 1.0, where 1.0 is fully opaque)
+    background-opacity = 0.95
+    
+    # Window padding
+    window-padding-x = 10
+    window-padding-y = 10
+    
+    # Cursor style (block, bar, or underline)
+    cursor-style = block
+    
+    # Enable bold fonts
+    bold-is-bright = true
+    
+    # Shell integration
+    shell-integration = detect
+  '';
 
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
@@ -74,6 +129,10 @@
   #
   home.sessionVariables = {
     # EDITOR = "emacs";
+    
+    # Uncomment these if you still have GL issues:
+    # LIBGL_ALWAYS_SOFTWARE = "1";  # Force software rendering
+    # GALLIUM_DRIVER = "llvmpipe";   # Use llvmpipe driver
   };
 
   # Let Home Manager install and manage itself.
