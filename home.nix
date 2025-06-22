@@ -104,6 +104,7 @@ in
       # Workspace settings
       "org/gnome/mutter" = {
         dynamic-workspaces = false;
+        center-new-windows = true;
       };
       
       "org/gnome/desktop/wm/preferences" = {
