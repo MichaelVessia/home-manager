@@ -22,8 +22,9 @@ in
     homeDirectory = "/home/${username}";
     stateVersion = "25.05"; # Don't change this
     packages = with pkgs; [
-      vim
+      # Utils
       git
+
       # I tried to install brave via pkgs.brave and some other methods
       # I kept getting issues around sandboxing so i just used their installer
       
@@ -35,10 +36,11 @@ in
       nerd-fonts.jetbrains-mono
       nerd-fonts.fira-code
 
+      # Makes the gnome workspaces nicer
       gnomeExtensions.space-bar
     ];
     sessionVariables = {
-      EDITOR = "vim";
+      EDITOR = "nvim";
     };
   };
 
@@ -66,6 +68,15 @@ in
       aliases = {
         st = "status";
       };
+    };
+
+    # Basic nvim setup, but we'll manage dots with chezmoi
+    neovim = {
+      enable = true;
+      defaultEditor = true;
+      viAlias = true;
+      vimAlias = true;
+      vimdiffAlias = true;
     };
   };
 
