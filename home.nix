@@ -36,7 +36,7 @@ in
       nerd-fonts.fira-code
     ];
     sessionVariables = {
-	    EDITOR = "vim";
+      EDITOR = "vim";
     };
   };
 
@@ -50,44 +50,51 @@ in
   # Enable font configuration
   fonts.fontconfig.enable = true;
 
-  # Configure Ghostty
-  xdg.configFile."ghostty/config".text = ''
-    # Font configuration
-    font-family = JetBrains Mono
-    font-size = 12
-    
-    # Theme (dark or light)
-    theme = dark:catppuccin-frappe,light:catppuccin-latte
+  # Basic config for installed programs
+  # Probably want to manage actual dotfiles in another way
+  programs = {
+    # Let Home Manager install and manage itself.
+    home-manager.enable = true;
 
-    
-    # Background opacity (0.0 to 1.0, where 1.0 is fully opaque)
-    background-opacity = 0.95
-    
-    # Window padding
-    window-padding-x = 10
-    window-padding-y = 10
-    
-    # Cursor style (block, bar, or underline)
-    cursor-style = block
-    
-    # Enable bold fonts
-    bold-is-bright = true
-    
-    # Shell integration
-    shell-integration = detect
-  '';
-
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
-
-  # Git config using Home Manager modules
-  programs.git = {
-    enable = true;
-    userName = username;
-    userEmail = "michael@vessia.net";
-    aliases = {
-      st = "status";
+    # Git config using Home Manager modules
+    git = {
+      enable = true;
+      userName = username;
+      userEmail = "michael@vessia.net";
+      aliases = {
+        st = "status";
+      };
     };
   };
 
+  xdg = {
+    configFile = {
+      # Configure Ghostty
+      "ghostty/config".text = ''
+        # Font configuration
+        font-family = JetBrains Mono
+        font-size = 12
+        
+        # Theme (dark or light)
+        theme = dark:catppuccin-frappe,light:catppuccin-latte
+
+        
+        # Background opacity (0.0 to 1.0, where 1.0 is fully opaque)
+        background-opacity = 0.95
+        
+        # Window padding
+        window-padding-x = 10
+        window-padding-y = 10
+        
+        # Cursor style (block, bar, or underline)
+        cursor-style = block
+        
+        # Enable bold fonts
+        bold-is-bright = true
+        
+        # Shell integration
+        shell-integration = detect
+      '';
+    };
+  };
 }
