@@ -151,17 +151,6 @@ in
             "space-bar@luchrioh"
           ];
         };
-   
-        # Space Bar specific settings (optional)
-        "org/gnome/shell/extensions/space-bar/behavior" = {
-          show-numbers = true;
-          smart-workspace-names = false;
-        };
-   
-        "org/gnome/shell/extensions/space-bar/appearance" = {
-          workspace-margin = 4;
-          workspaces-bar-padding = 4;
-        };
       };
   };
 }
