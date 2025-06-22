@@ -94,7 +94,19 @@
 
 # Enable icons when i hit windows key
 targets.genericLinux.enable = true;
-xdg.enable = true;
+xdg = {
+  enable = true;
+  mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "text/html" = "brave-browser.desktop";
+      "x-scheme-handler/http" = "brave-browser.desktop";
+      "x-scheme-handler/https" = "brave-browser.desktop";
+      "x-scheme-handler/about" = "brave-browser.desktop";
+      "x-scheme-handler/unknown" = "brave-browser.desktop";
+    };
+  };
+};
 
 # Configure brave icon and launch without sandbox so it actually works
 home.file.".local/share/applications/brave.desktop" = {
