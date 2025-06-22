@@ -2,7 +2,10 @@
 
 let
   # Import nixGL for OpenGL support on non-NixOS systems
-  nixgl = import (fetchTarball "https://github.com/nix-community/nixGL/archive/main.tar.gz") {
+  nixgl = import (fetchTarball {
+    url = "https://github.com/nix-community/nixGL/archive/main.tar.gz";
+    sha256 = "1crnbv3mdx83xjwl2j63rwwl9qfgi2f1lr53zzjlby5lh50xjz4n";
+  }) {
     inherit pkgs;
   };
 in
@@ -36,25 +39,9 @@ in
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
-
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
-
     pkgs.vim
     pkgs.git
+    # pkgs.brave
     # I tried to install brave via pkgs.brave and some other methods
     # I kept getting issues around sandboxing so i just used their installer
     
@@ -129,7 +116,7 @@ in
   #  /etc/profiles/per-user/michaelvessia/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    EDITOR = "vim";
     
     # Uncomment these if you still have GL issues:
     # LIBGL_ALWAYS_SOFTWARE = "1";  # Force software rendering
@@ -148,4 +135,11 @@ in
       st = "status";
     };
   };
+
+  nix = {
+	  package = pkgs.nix;
+	  settings.experimental-features = [ "nix-command" "flakes" ];
+  };
+
+
 }
