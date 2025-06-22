@@ -38,21 +38,22 @@ in
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = [
-    pkgs.vim
-    pkgs.git
-    # pkgs.brave
-    # I tried to install brave via pkgs.brave and some other methods
-    # I kept getting issues around sandboxing so i just used their installer
-    
-    # Install Ghostty wrapped with nixGL for proper OpenGL support
-    (config.lib.nixGL.wrap pkgs.ghostty)
-    
-    # Optional: Install some nice fonts for the terminal
-    pkgs.jetbrains-mono
-    pkgs.nerd-fonts.jetbrains-mono
-    pkgs.nerd-fonts.fira-code
+  home = {
+    packages = with pkgs; [
+      vim
+      git
+      # I tried to install brave via pkgs.brave and some other methods
+      # I kept getting issues around sandboxing so i just used their installer
+      
+      # Install Ghostty wrapped with nixGL for proper OpenGL support
+      (config.lib.nixGL.wrap ghostty)
+      
+      # Optional: Install some nice fonts for the terminal
+      jetbrains-mono
+      nerd-fonts.jetbrains-mono
+      nerd-fonts.fira-code
   ];
+};
 
   # Enable font configuration
   fonts.fontconfig.enable = true;
