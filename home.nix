@@ -23,6 +23,12 @@
     # pkgs.hello
     pkgs.vim
     pkgs.git
+    (pkgs.brave.override {
+      commandLineArgs = [
+	# this was needed to get brave to start
+        "--no-sandbox"
+      ];
+     })
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -85,6 +91,29 @@
       st = "status";
     };
   };
+
+# Enable icons when i hit windows key
+targets.genericLinux.enable = true;
+xdg.enable = true;
+
+# Configure brave icon and launch without sandbox so it actually works
+home.file.".local/share/applications/brave.desktop" = {
+  text = ''
+    [Desktop Entry]
+    Version=1.0
+    Name=Brave Browser
+    GenericName=Web Browser
+    Comment=Browse the World Wide Web
+    Exec=${pkgs.brave.override { commandLineArgs = [ "--no-sandbox" ]; }}/bin/brave %U
+    Terminal=false
+    Type=Application
+    Icon=brave-browser
+    Categories=Network;WebBrowser;
+    MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;
+    StartupNotify=true
+  '';
+  executable = false;
+};
 	
 
 
