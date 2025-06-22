@@ -92,7 +92,8 @@ in
     font-size = 12
     
     # Theme (dark or light)
-    theme = dark
+    theme = dark:catppuccin-frappe,light:catppuccin-latte
+
     
     # Background opacity (0.0 to 1.0, where 1.0 is fully opaque)
     background-opacity = 0.95
