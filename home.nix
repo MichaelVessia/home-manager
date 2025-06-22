@@ -75,4 +75,17 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  # Git config using Home Manager modules
+  programs.git = {
+    enable = true;
+    userName = "michaelvessia";
+    userEmail = "michael@vessia.net";
+    aliases = {
+      st = "status";
+    };
+  };
+	
+
+
 }
