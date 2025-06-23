@@ -21,15 +21,6 @@
     };
 };
   
-  # Basic nvim setup, but we'll manage dots with chezmoi
-  neovim = {
-    enable = true;
-    defaultEditor = true;
-    viAlias = true;
-    vimAlias = true;
-    vimdiffAlias = true;
-  };
-
 fish = {
 
 	enable = true;
@@ -40,7 +31,8 @@ fish = {
 		"...." = "cd ../../../";
 		"....." = "cd ../../../../";
 		
-		"dot" = "cd ~/.dotfiles";
+		"dots" = "chezmoi cd";
+		"hm" = "cd ~/home-manager";
 
     "ls" = "eza";
     "ll" = "eza -l";

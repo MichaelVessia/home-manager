@@ -7,8 +7,10 @@ in
 {
   imports = [
     ./nixgl.nix
-    ./ghostty.nix
     ./gnome.nix
+    # Copied structure from https://codeberg.org/justgivemeaname/.dotfiles/src/branch/main/home-manager/packages
+    ./packages/signal-desktop/signal-desktop.nix
+    ./packages/ghostty/ghostty.nix
   ];
 
   nix = {
@@ -29,6 +31,7 @@ in
     
     sessionVariables = {
       EDITOR = "nvim";
+      TERM = "fish";
     };
   };
   
@@ -72,4 +75,11 @@ home.file.".bashrc".text = lib.mkAfter ''
     exec fish
   fi
 '';
+
+nixpkgs = {
+		config = {
+			allowUnfree = true;
+			allowUnfreePredicate = (_: true);
+		};
+	};
 }

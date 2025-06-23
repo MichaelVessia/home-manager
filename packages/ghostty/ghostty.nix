@@ -1,6 +1,12 @@
-{ ... }:
+{ config, pkgs, ... }:
 
 {
+
+	home.packages = with pkgs; [
+    # Install Ghostty wrapped with nixGL for proper OpenGL support
+    (config.lib.nixGL.wrap ghostty)
+	];
+
   xdg.configFile = {
     "ghostty/config".text = ''
       # Font configuration

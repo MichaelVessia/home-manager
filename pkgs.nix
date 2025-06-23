@@ -8,9 +8,6 @@ with pkgs; [
   # I tried to install brave via pkgs.brave and some other methods
   # I kept getting issues around sandboxing so i just used their installer
   
-  # Install Ghostty wrapped with nixGL for proper OpenGL support
-  (config.lib.nixGL.wrap ghostty)
-  
   # Optional: Install some nice fonts for the terminal
   jetbrains-mono
   nerd-fonts.jetbrains-mono
@@ -36,6 +33,7 @@ with pkgs; [
   luarocks # lua pkg manager
   ast-grep # Structured grep
   lua # Lua language
+  xsel # clipboard manager
 
   # media
   feh
