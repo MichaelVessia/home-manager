@@ -4,6 +4,7 @@ with pkgs; [
   # Utils
   git
   git-lfs
+  eza
   # I tried to install brave via pkgs.brave and some other methods
   # I kept getting issues around sandboxing so i just used their installer
   
@@ -35,5 +36,10 @@ with pkgs; [
   luarocks # lua pkg manager
   ast-grep # Structured grep
   lua # Lua language
+
+  # media
+  feh
+  vlc
+  yt-dlp
 
 ]

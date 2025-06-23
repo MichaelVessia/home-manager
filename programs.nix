@@ -42,6 +42,11 @@ fish = {
 		
 		"dot" = "cd ~/.dotfiles";
 
+    "ls" = "eza";
+    "ll" = "eza -l";
+    "la" = "eza -la";
+    "lt" = "eza --tree";
+
 		"cp" = "cp -v";
 		"ddf" = "df -h";
 		"etc" = "erd -H";
@@ -64,7 +69,6 @@ fish = {
 	};
 	
 	shellAbbrs = {
-
 		# git abbreviations
 		gaa  = "git add -A";
 		ga   = "git add";
