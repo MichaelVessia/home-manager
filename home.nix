@@ -21,6 +21,8 @@ in
     ./packages/volta/volta.nix
     ./packages/media/media.nix
     ./packages/home-manager/home-manager.nix
+    ./packages/apparmor/apparmor-profiles.nix
+    ./packages/brave/brave.nix
   ];
 
   nix = {
