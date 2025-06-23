@@ -6,9 +6,9 @@ let
 in
 {
   imports = [
-    ./nixgl.nix
-    ./gnome.nix
     # Copied structure from https://codeberg.org/justgivemeaname/.dotfiles/src/branch/main/home-manager/packages
+    ./packages/nixgl/nixgl.nix
+    ./packages/gnome/gnome.nix
     ./packages/signal-desktop/signal-desktop.nix
     ./packages/ghostty/ghostty.nix
     ./packages/neovim/neovim.nix
