@@ -6,6 +6,7 @@ let
   appArmorApps = {
     signal-desktop = "signal-desktop";
     brave = "brave";
+    obsidian = "obsidian";
     #discord = "discord";
     #slack = "slack";
     #zoom = "zoom";

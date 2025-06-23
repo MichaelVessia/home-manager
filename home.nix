@@ -23,6 +23,7 @@ in
     ./packages/home-manager/home-manager.nix
     ./packages/apparmor/apparmor-profiles.nix
     ./packages/brave/brave.nix
+    ./packages/obsidian/obsidian.nix
   ];
 
   nix = {

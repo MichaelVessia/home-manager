@@ -61,6 +61,13 @@
       enabled-extensions = [
         "space-bar@luchrioh"
       ];
+      # Set favorite (pinned) applications in the dash
+      favorite-apps = [
+        "ghostty.desktop"
+        "brave-browser.desktop"
+        "obsidian.desktop"
+        "signal-desktop.desktop"
+      ];
     };
   };
 }
