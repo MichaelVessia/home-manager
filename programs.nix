@@ -30,122 +30,212 @@
     vimdiffAlias = true;
   };
 
-  fish = {
-    enable = true;
-    
-    # Interactive shell init
-    interactiveShellInit = ''
-      # Disable greeting
-      set -g fish_greeting
-      
-      # Better colors for ls
-      set -gx LS_COLORS (${pkgs.vivid}/bin/vivid generate molokai)
-      
-      # Set your preferred editor (already set in sessionVariables but good to have here too)
-      set -gx EDITOR nvim
-      
-      # Better command not found handling
-      function fish_command_not_found
-        ${pkgs.nix-index}/bin/nix-locate --minimal --no-group --type x --type s --top-level --whole-name --at-root "/bin/$argv[1]"
-      end
-    '';
-    
-    # Shell aliases
-    shellAliases = {
-      # Nix aliases
-      rebuild = "home-manager switch --flake .#${username}";
-      update = "nix flake update";
-      
-      # Git aliases
-      g = "git";
-      gs = "git status";
-      ga = "git add";
-      gc = "git commit";
-      gp = "git push";
-      gl = "git log --oneline --graph --decorate";
-      
-      # Common shortcuts
-      ll = "ls -lah";
-      la = "ls -A";
-      l = "ls -CF";
-      
-      # Directory navigation
-      ".." = "cd ..";
-      "..." = "cd ../..";
-      "...." = "cd ../../..";
-      
-      # Safety aliases
-      rm = "rm -i";
-      cp = "cp -i";
-      mv = "mv -i";
-    };
-    
-    # Custom functions
-    functions = {
-      # Create and enter directory
-      mkcd = ''
-        mkdir -p $argv[1]
-        cd $argv[1]
-      '';
-      
-      # Extract archives
-      extract = ''
-        if test -f $argv[1]
-          switch $argv[1]
-            case '*.tar.bz2'
-              tar xjf $argv[1]
-            case '*.tar.gz'
-              tar xzf $argv[1]
-            case '*.bz2'
-              bunzip2 $argv[1]
-            case '*.gz'
-              gunzip $argv[1]
-            case '*.tar'
-              tar xf $argv[1]
-            case '*.zip'
-              unzip $argv[1]
-            case '*.7z'
-              7z x $argv[1]
-            case '*'
-              echo "Unknown archive format"
-          end
-        else
-          echo "'$argv[1]' is not a valid file"
-        end
-      '';
-      
-      # Quick backup
-      backup = ''
-        cp -r $argv[1] $argv[1].backup.(date +%Y%m%d_%H%M%S)
-      '';
-    };
-    
-    # Plugins using fishPlugins
-    plugins = [
-      {
-        name = "tide";
-        src = pkgs.fishPlugins.tide.src;
-      }
-      {
-        name = "fzf-fish";
-        src = pkgs.fishPlugins.fzf-fish.src;
-      }
-      {
-        name = "autopair";
-        src = pkgs.fishPlugins.autopair.src;
-      }
-      {
-        name = "done";
-        src = pkgs.fishPlugins.done.src;
-      }
-    ];
-  };
-  
-  # Enable starship prompt (alternative to tide - choose one)
-  # starship = {
-  #   enable = true;
-  #   enableFishIntegration = true;
-  # };
+fish = {
+
+	enable = true;
+
+	shellAliases = {
+		".." = "cd ..";
+		"..." = "cd ../..";
+		"...." = "cd ../../../";
+		"....." = "cd ../../../../";
+		
+		"dot" = "cd ~/.dotfiles";
+
+		"cp" = "cp -v";
+		"ddf" = "df -h";
+		"etc" = "erd -H";
+		"mkdir" = "mkdir -p";
+		"mv" = "mv -v";
+		"rm" = "rm -v";
+
+
+		"avi" = "vlc *.avi";
+		"jpeg" = "feh -Z *.jpeg";
+		"jpg" = "feh -Z *.jpg";
+		"mkv" = "vlc *.mkv";
+		"mov" = "vlc *.mov";
+		"mp3" = "vlc *.mp3";
+		"mp4" = "vlc *.mp4";
+		"png" = "feh -Z *.png";
+		"vvlc" = "vlc *";
+		"webm" = "vlc *.webm";
+		
+	};
+	
+	shellAbbrs = {
+
+		# git abbreviations
+		gaa  = "git add -A";
+		ga   = "git add";
+		gbd  = "git branch --delete";
+		gb   = "git branch";
+		gc   = "git commit";
+		gcm  = "git commit -m";
+		gcob = "git checkout -b";
+		gco  = "git checkout";
+		gd   = "git diff";
+		gl   = "git log";
+		gp   = "git push";
+		gph = "git push -u origin HEAD";
+		gs   = "git status";
+		gst  = "git stash";
+		gstp =  "git stash pop";
+	};
+
+	functions = {
+
+		extract = '' 
+		function extract
+	    switch $argv[1]
+	        case "*.tar.bz2"
+	            tar xjf $argv[1]
+
+	        case "*.tar.gz"
+	            tar xzf $argv[1]
+
+	        case "*.bz2"
+	            bunzip2 $argv[1]
+
+	        case "*.rar"
+	            unrar e $argv[1]
+
+	        case "*.gz"
+	            gunzip $argv[1]
+
+	        case "*.tar"
+	            tar xf $argv[1]
+
+	        case "*.tbz2"
+	            tar xjf $argv[1]
+
+	        case "*.tgz"
+	            tar xzf $argv[1]
+
+	        case "*.zip"
+	            unzip $argv[1]
+
+	        case "*.Z"
+	            uncompress $argv[1]
+
+	        case "*.7z"
+	            7z x $argv[1]
+
+	        case "*"
+	            echo "unknown extension: $argv[1]"
+	    end
+		end
+		'';
+
+
+		extracttodir = '' 
+		function extracttodir
+		    switch $argv[1]
+		        case "*.tar.bz2"
+		            tar -xjf $argv[1] -C "$argv[2]"
+
+		        case "*.tar.gz"
+		            tar -xzf $argv[1] -C "$argv[2]"
+
+		        case "*.rar"
+		            unrar x $argv[1] "$argv[2]/"
+
+		        case "*.tar"
+		            tar -xf $argv[1] -C "$argv[2]"
+
+		        case "*.tbz2"
+		            tar -xjf $argv[1] -C "$argv[2]"
+
+		        case "*.tgz"
+		            tar -xzf $argv[1] -C "$argv[2]"
+
+		        case "*.zip"
+		            unzip $argv[1] -d $argv[2]
+
+		        case "*.7z"
+		            7za e -y $argv[1] -o"$argv[2]"
+
+		        case "*"
+		            echo "unknown extension: $argv[1]"
+		    end
+		end
+		'';
+		
+		lsr = ''
+		function lsr
+    	ls | rg -i $argv[1]
+		end
+		 '';
+
+		mkcd = '' 
+		function mkcd --argument name
+			mkdir -p $name
+			cd $name
+		end
+		'';
+
+		num = '' 
+		function num 
+			ls -1 $argv | wc -l;
+		end
+		'';
+
+		wg = '' 
+		function wg
+	    set -l num_args (count $argv)
+
+	    if test $num_args -eq 1
+	        wget -c $argv[1]
+
+	    else if test $num_args -eq 2
+	        # arg1 = name, arg2 = url
+	        wget -c -O $argv[1] $argv[2]
+
+	    else
+	        echo "Incorrect number of arguments"
+	    end
+		end
+		'';
+
+		ytarchive = '' 
+		function ytarchive
+		 yt-dlp -f bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best -o '%(upload_date)s - %(channel)s - %(id)s - %(title)s.%(ext)s' \
+		 --sponsorblock-mark "all" \
+		 --geo-bypass \
+		 --sub-langs 'all' \
+		 --embed-subs \
+		 --embed-metadata \
+		 --convert-subs 'srt' \
+		 --download-archive $argv[1].txt https://www.youtube.com/$argv[1]/videos; 
+		end
+		'';
+
+		ytarchivevideo = '' 
+		function ytarchivevideo
+		  yt-dlp -f bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best -o '%(upload_date)s - %(channel)s - %(id)s - %(title)s.%(ext)s' \
+		 --sponsorblock-mark "all" \
+		 --geo-bypass \
+		 --sub-langs 'all' \
+		 --embed-metadata \
+		 --convert-subs 'srt' \
+		 --download-archive $argv[1] $argv[2]; 
+		end
+		'';
+
+		ytd = '' 
+		function ytd
+     yt-dlp -f bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best -o '%(upload_date)s - %(channel)s - %(id)s - %(title)s.%(ext)s' \
+		 --sponsorblock-mark "all" \
+		 --geo-bypass \
+		 --sub-langs 'all' \
+		 --embed-subs \
+		 --embed-metadata \
+		 --convert-subs 'srt' \
+		 $argv
+		end
+		'';
+	};
+};
   
   # Other programs that integrate well with fish
   fzf = {
