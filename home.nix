@@ -40,6 +40,7 @@ in
     sessionVariables = {
       EDITOR = "nvim";
       TERM = "fish";
+      PATH = "$HOME/scripts:$PATH";
     };
   };
   
@@ -90,6 +91,11 @@ home.file.".bashrc".text = lib.mkAfter ''
 
   home.file."scripts/generate-apparmor-profiles.sh" = {
     source = ./scripts/generate-apparmor-profiles.sh;
+    executable = true;
+  };
+
+  home.file."scripts/open-service.sh" = {
+    source = ./scripts/open-service.sh;
     executable = true;
   };
 
