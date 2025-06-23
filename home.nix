@@ -1,5 +1,4 @@
 { config, pkgs, ... }:
-
 let
   # Import nixGL for OpenGL support on non-NixOS systems
   nixgl = import (fetchTarball {
@@ -8,58 +7,46 @@ let
   }) {
     inherit pkgs;
   };
+  
   # Share username across various bits of the config
   username = "michaelvessia";
+  
+  # Import the packages list
+  myPackages = import ./pkgs.nix { inherit pkgs config nixgl; };
 in
 {
   nix = {
     package = pkgs.nix;
     settings.experimental-features = [ "nix-command" "flakes" ];
   };
-
+  
   home = {
     inherit username;
     homeDirectory = "/home/${username}";
     stateVersion = "25.05"; # Don't change this
-    packages = with pkgs; [
-      # Utils
-      git
-
-      # I tried to install brave via pkgs.brave and some other methods
-      # I kept getting issues around sandboxing so i just used their installer
-      
-      # Install Ghostty wrapped with nixGL for proper OpenGL support
-      (config.lib.nixGL.wrap ghostty)
-      
-      # Optional: Install some nice fonts for the terminal
-      jetbrains-mono
-      nerd-fonts.jetbrains-mono
-      nerd-fonts.fira-code
-
-      # Makes the gnome workspaces nicer
-      gnomeExtensions.space-bar
-    ];
+    packages = myPackages;
+    
     sessionVariables = {
       EDITOR = "nvim";
     };
   };
-
+  
   nixGL = {
     # Enable nixGL integration
     packages = nixgl;
     defaultWrapper = "mesa";
     installScripts = [ "mesa" ];
   };
-
+  
   # Enable font configuration
   fonts.fontconfig.enable = true;
-
+  
   # Basic config for installed programs
   # Probably want to manage actual dotfiles in another way
   programs = {
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
-
+    
     # Git config using Home Manager modules
     git = {
       enable = true;
@@ -69,7 +56,7 @@ in
         st = "status";
       };
     };
-
+    
     # Basic nvim setup, but we'll manage dots with chezmoi
     neovim = {
       enable = true;
@@ -79,7 +66,7 @@ in
       vimdiffAlias = true;
     };
   };
-
+  
   xdg = {
     configFile = {
       # Configure Ghostty
@@ -90,7 +77,6 @@ in
         
         # Theme (dark or light)
         theme = dark:catppuccin-frappe,light:catppuccin-latte
-
         
         # Background opacity (0.0 to 1.0, where 1.0 is fully opaque)
         background-opacity = 0.95
@@ -110,6 +96,7 @@ in
       '';
     };
   };
+  
   dconf = {
     settings = {
       # Workspace settings
@@ -143,7 +130,6 @@ in
         switch-to-workspace-4 = ["<Super>4"];
         switch-to-workspace-5 = ["<Super>5"];
         switch-to-workspace-6 = ["<Super>6"];
-
         # Add move-to-workspace keys
         move-to-workspace-1 = ["<Super><Shift>1"];
         move-to-workspace-2 = ["<Super><Shift>2"];
@@ -152,17 +138,17 @@ in
         move-to-workspace-5 = ["<Super><Shift>5"];
         move-to-workspace-6 = ["<Super><Shift>6"];
       };
-
+      
       # Disable Ubuntu Dock number key shortcuts
       "org/gnome/shell/extensions/dash-to-dock" = {
         hot-keys = false;
       };
-
+      
       "org/gnome/shell" = {
         enabled-extensions = [
-            "space-bar@luchrioh"
-          ];
-        };
+          "space-bar@luchrioh"
+        ];
       };
+    };
   };
 }
