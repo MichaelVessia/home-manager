@@ -21,6 +21,12 @@ with pkgs; [
   # Dotfiles management for things I don't want to manage via nix
   chezmoi
 
-  # tree-sitter (for nvim)
+  # Development tools
+  gcc
+  gnumake
   tree-sitter
+  volta
+  fzf
+  ripgrep
+  fd
 ]
