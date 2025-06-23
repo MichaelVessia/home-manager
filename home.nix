@@ -13,6 +13,14 @@ in
     ./packages/ghostty/ghostty.nix
     ./packages/neovim/neovim.nix
     ./packages/fish/fish.nix
+    ./packages/git/git.nix
+    ./packages/eza/eza.nix
+    ./packages/fonts/fonts.nix
+    ./packages/gnome-extensions/gnome-extensions.nix
+    ./packages/chezmoi/chezmoi.nix
+    ./packages/volta/volta.nix
+    ./packages/media/media.nix
+    ./packages/home-manager/home-manager.nix
   ];
 
   nix = {
@@ -25,12 +33,6 @@ in
     homeDirectory = "/home/${username}";
     stateVersion = "25.05"; # Don't change this
     
-    # Import packages from separate file
-    packages = import ./pkgs.nix { 
-      inherit pkgs config; 
-      inherit (config._module.args) nixgl;
-    };
-    
     sessionVariables = {
       EDITOR = "nvim";
       TERM = "fish";
@@ -40,8 +42,6 @@ in
   # Enable font configuration
   fonts.fontconfig.enable = true;
   
-  # Import programs configuration
-  programs = import ./programs.nix { inherit pkgs username; };
  
    home.activation.chezmoi = lib.hm.dag.entryAfter ["installPackages" "generateSshKey"] ''
      PATH="${pkgs.chezmoi}/bin:${pkgs.git}/bin:${pkgs.git-lfs}/bin:${pkgs.openssh}/bin:''${PATH}"

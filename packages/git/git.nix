@@ -1,13 +1,14 @@
-{ pkgs, username, ... }:
+{ config, pkgs, ... }:
 
 {
-  # Let Home Manager install and manage itself.
-  home-manager.enable = true;
-  
-  # Git config using Home Manager modules
-  git = {
+  home.packages = with pkgs; [
+    git
+    git-lfs
+  ];
+
+  programs.git = {
     enable = true;
-    userName = username;
+    userName = "michaelvessia";
     userEmail = "michael@vessia.net";
     aliases = {
       st = "status";
@@ -19,5 +20,5 @@
       url."git@github.com:".insteadOf = "https://github.com/";
       push.autoSetupRemote = true;
     };
-};
+  };
 }
