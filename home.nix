@@ -11,6 +11,8 @@ in
     # Copied structure from https://codeberg.org/justgivemeaname/.dotfiles/src/branch/main/home-manager/packages
     ./packages/signal-desktop/signal-desktop.nix
     ./packages/ghostty/ghostty.nix
+    ./packages/neovim/neovim.nix
+    ./packages/fish/fish.nix
   ];
 
   nix = {
