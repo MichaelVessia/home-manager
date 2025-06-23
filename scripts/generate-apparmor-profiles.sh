@@ -47,7 +47,7 @@ profile_needs_update() {
 
 # Read applications from Nix-generated config
 # When running with sudo, $HOME becomes /root, so we need to use SUDO_USER
-if [ -n "$SUDO_USER" ]; then
+if [ -n "${SUDO_USER:-}" ]; then
     USER_HOME=$(getent passwd "$SUDO_USER" | cut -d: -f6)
 else
     USER_HOME="$HOME"
