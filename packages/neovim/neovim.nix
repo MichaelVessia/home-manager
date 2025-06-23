@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 {
   home.packages = with pkgs; [
-    neovim
+    # neovim
     # Also add all the things I installed for neovim compat
     # These are not necessarily neovim specific
     # So maybe ill move them
@@ -22,6 +22,7 @@
   ];
 
   programs.neovim = {
+    enable = true;
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
