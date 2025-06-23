@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ lib, config, pkgs, ... }:
 
 let
   # Share username across various bits of the config
@@ -37,4 +37,13 @@ in
   
   # Import programs configuration
   programs = import ./programs.nix { inherit pkgs username; };
+# 
+#   home.activation.chezmoi = lib.hm.dag.entryAfter ["installPackages"] ''
+#     PATH="${pkgs.chezmoi}/bin:${pkgs.git}/bin:${pkgs.git-lfs}/bin:''${PATH}"
+# 
+#     $DRY_RUN_CMD chezmoi init git.sapphicco.de/SapphicCode/dotfiles
+#     $DRY_RUN_CMD chezmoi update -a
+#     $DRY_RUN_CMD chezmoi git status
+#   '';
+
 }

@@ -3,6 +3,7 @@
 with pkgs; [
   # Utils
   git
+  git-lfs
   # I tried to install brave via pkgs.brave and some other methods
   # I kept getting issues around sandboxing so i just used their installer
   
@@ -19,4 +20,7 @@ with pkgs; [
   
   # Dotfiles management for things I don't want to manage via nix
   chezmoi
+
+  # tree-sitter (for nvim)
+  tree-sitter
 ]
