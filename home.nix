@@ -24,6 +24,7 @@ in
     ./packages/apparmor/apparmor-profiles.nix
     ./packages/brave/brave.nix
     ./packages/obsidian/obsidian.nix
+    ./packages/syncthing/syncthing.nix
   ];
 
   nix = {
@@ -80,6 +81,17 @@ home.file.".bashrc".text = lib.mkAfter ''
     exec fish
   fi
 '';
+
+  # Make scripts executable
+  home.file."scripts/setup-node.sh" = {
+    source = ./scripts/setup-node.sh;
+    executable = true;
+  };
+
+  home.file."scripts/generate-apparmor-profiles.sh" = {
+    source = ./scripts/generate-apparmor-profiles.sh;
+    executable = true;
+  };
 
 nixpkgs = {
 		config = {
