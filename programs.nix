@@ -11,8 +11,15 @@
     userEmail = "michael@vessia.net";
     aliases = {
       st = "status";
+      co = "checkout";
+      br = "branch";
+      ci = "commit";
     };
-  };
+    extraConfig = {
+      url."git@github.com:".insteadOf = "https://github.com/";
+      push.autoSetupRemote = true;
+    };
+};
   
   # Basic nvim setup, but we'll manage dots with chezmoi
   neovim = {

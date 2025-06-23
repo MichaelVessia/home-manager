@@ -46,4 +46,13 @@ in
 #     $DRY_RUN_CMD chezmoi git status
 #   '';
 
+  # Generate SSH key if it doesn't exist
+  home.activation.generateSshKey = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    if [ ! -f "$HOME/.ssh/id_ed25519" ]; then
+      $DRY_RUN_CMD mkdir -p $HOME/.ssh
+      $DRY_RUN_CMD ${pkgs.openssh}/bin/ssh-keygen -t ed25519 -C "michael@vessia.net" -f $HOME/.ssh/id_ed25519 -N ""
+      $DRY_RUN_CMD echo "SSH key generated! Add this public key to GitHub:"
+      $DRY_RUN_CMD cat $HOME/.ssh/id_ed25519.pub
+    fi
+  '';
 }
