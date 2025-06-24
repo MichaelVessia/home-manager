@@ -4,7 +4,7 @@ update:
 
 .PHONY: force-update
 force-update:
-	home-manager switch --flake .#michaelvessia -b backup
+	home-manager switch --flake .#michaelvessia -b backup-$(shell date +%Y%m%d-%H%M%S)
 	@echo "Checking AppArmor profiles..."
 	@~/scripts/generate-apparmor-profiles.sh || echo "Run 'make apparmor' to update AppArmor profiles"
 

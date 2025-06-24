@@ -26,44 +26,12 @@ Some configuration files (dotfiles) are managed separately using [chezmoi](https
 
 ## Usage
 
-This configuration includes a Makefile for common tasks:
-
-### Apply Changes
+To apply changes:
 ```bash
-make update
+make
 ```
-Equivalent to: `home-manager switch --flake .#michaelvessia`
 
-### Force Update (with backup)
-```bash
-make force-update
-```
-Creates a backup and applies changes, also checks AppArmor profiles.
-
-### Update AppArmor Profiles
-```bash
-make apparmor
-```
-Updates AppArmor profiles for Nix packages (requires sudo).
-
-### Setup Node.js
-```bash
-make setup-node
-```
-Installs Node.js and global npm packages via custom script.
-
-### Clean Up
-```bash
-make clean
-```
-Runs `nix-collect-garbage -d` to remove old generations and free disk space.
-
-### Manual Commands
-For direct home-manager usage:
-```bash
-home-manager switch --flake .#michaelvessia
-nix flake update  # Update flake inputs
-```
+See the [Makefile](./Makefile) for all available commands including force updates, cleanup, and maintenance tasks.
 
 ## Directory Navigation
 
