@@ -2,9 +2,7 @@
 
 {
   home.packages = with pkgs; [
-    gh
     git
-    git-lfs
   ];
 
   programs.git = {

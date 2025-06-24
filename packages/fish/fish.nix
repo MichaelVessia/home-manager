@@ -3,8 +3,6 @@
 {
 	home.packages = with pkgs; [
 		fish
-		bat # for file previews
-		fd # fast file finder for fzf
 	];
 
 programs.fish = {

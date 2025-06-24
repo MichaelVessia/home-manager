@@ -15,10 +15,9 @@ in
     ./packages/fish/fish.nix
     ./packages/starship/starship.nix
     ./packages/git/git.nix
-    ./packages/eza/eza.nix
+    ./packages/utilities/utilities.nix
     ./packages/fonts/fonts.nix
     ./packages/gnome-extensions/gnome-extensions.nix
-    ./packages/chezmoi/chezmoi.nix
     ./packages/volta/volta.nix
     ./packages/media/media.nix
     ./packages/home-manager/home-manager.nix
@@ -43,7 +42,7 @@ in
     
     sessionVariables = {
       EDITOR = "nvim";
-      TERM = "fish";
+      TERM = "xterm-256color";
       PATH = "$HOME/scripts:$PATH";
     };
   };
