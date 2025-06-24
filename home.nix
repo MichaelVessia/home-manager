@@ -13,6 +13,7 @@ in
     ./packages/ghostty/ghostty.nix
     ./packages/neovim/neovim.nix
     ./packages/fish/fish.nix
+    ./packages/starship/starship.nix
     ./packages/git/git.nix
     ./packages/eza/eza.nix
     ./packages/fonts/fonts.nix

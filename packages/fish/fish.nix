@@ -3,8 +3,8 @@
 {
 	home.packages = with pkgs; [
 		fish
-		zoxide
-		fzf
+		bat # for file previews
+		fd # fast file finder for fzf
 	];
 
 programs.fish = {
@@ -20,8 +20,7 @@ programs.fish = {
 		"dots" = "chezmoi cd";
 		"hm" = "cd ~/home-manager";
 
-		# zoxide aliases
-		"cd" = "z";
+		# zoxide aliases (cd is now handled by zoxide directly)
 		"cdi" = "zi";
 
     "ls" = "eza";
@@ -222,25 +221,37 @@ programs.fish = {
 		'';
 	};
 
-	interactiveShellInit = ''
-		# Initialize zoxide
-		${pkgs.zoxide}/bin/zoxide init fish | source
+};
 
-		# FZF key bindings and completion
-		${pkgs.fzf}/share/fzf/key-bindings.fish | source
-		${pkgs.fzf}/share/fzf/completion.fish | source
+programs.fzf = {
+	enable = true;
+	enableFishIntegration = true;
+	
+	defaultOptions = [
+		"--height 40%"
+		"--layout=reverse"
+		"--border"
+		"--preview 'if test -d {}; then eza --tree --level=2 --color=always {}; else bat --color=always --style=numbers --line-range=:500 {}; end'"
+	];
+	
+	fileWidgetOptions = [
+		"--preview 'if test -d {}; then eza --tree --level=2 --color=always {}; else bat --color=always --style=numbers --line-range=:500 {}; end'"
+	];
+	
+	changeDirWidgetOptions = [
+		"--preview 'eza --tree --level=2 --color=always {} 2>/dev/null || echo {}'"
+	];
+	
+	defaultCommand = "fd --type f --hidden --follow --exclude .git";
+	fileWidgetCommand = "fd --type f --hidden --follow --exclude .git";
+	changeDirWidgetCommand = "fd --type d --hidden --follow --exclude .git";
+};
 
-		# FZF configuration
-		set -gx FZF_DEFAULT_OPTS "--height 40% --layout=reverse --border --preview 'bat --color=always --style=numbers --line-range=:500 {}' 2>/dev/null || echo {}"
-		set -gx FZF_CTRL_T_OPTS "--preview 'bat --color=always --style=numbers --line-range=:500 {}' 2>/dev/null || echo {}"
-		set -gx FZF_ALT_C_OPTS "--preview 'eza --tree --level=2 --color=always {}' 2>/dev/null || echo {}"
-
-		# Use fd for fzf if available (faster than find)
-		if command -v fd > /dev/null
-			set -gx FZF_DEFAULT_COMMAND 'fd --type f --hidden --follow --exclude .git'
-			set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
-			set -gx FZF_ALT_C_COMMAND 'fd --type d --hidden --follow --exclude .git'
-		end
-	'';
+programs.zoxide = {
+	enable = true;
+	enableFishIntegration = true;
+	options = [
+		"--cmd cd"  # This makes 'cd' command use zoxide
+	];
 };
 }
