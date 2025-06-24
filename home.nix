@@ -25,6 +25,7 @@ in
     ./packages/brave/brave.nix
     ./packages/obsidian/obsidian.nix
     ./packages/syncthing/syncthing.nix
+    ./packages/cursor/cursor.nix
   ];
 
   nix = {

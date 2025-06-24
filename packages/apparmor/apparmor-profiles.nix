@@ -7,6 +7,7 @@ let
     signal-desktop = "signal-desktop";
     brave = "brave";
     obsidian = "obsidian";
+    cursor = "cursor";
     #discord = "discord";
     #slack = "slack";
     #zoom = "zoom";
