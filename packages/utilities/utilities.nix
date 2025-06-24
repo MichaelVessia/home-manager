@@ -15,6 +15,7 @@
     ripgrep # fast text search tool (better than grep)
     tree # directory tree viewer
     ncdu # disk usage analyzer with ncurses interface
+    atuin # Replacement for shell history
     
     # Development utilities  
     gh # GitHub CLI

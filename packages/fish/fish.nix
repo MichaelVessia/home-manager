@@ -229,11 +229,11 @@ programs.fzf = {
 		"--height 40%"
 		"--layout=reverse"
 		"--border"
-		"--preview 'if test -d {}; then eza --tree --level=2 --color=always {}; else bat --color=always --style=numbers --line-range=:500 {}; end'"
+		"--preview 'bat --color=always --style=numbers --line-range=:500 {} 2>/dev/null || echo {}'"
 	];
 	
 	fileWidgetOptions = [
-		"--preview 'if test -d {}; then eza --tree --level=2 --color=always {}; else bat --color=always --style=numbers --line-range=:500 {}; end'"
+		"--preview 'bat --color=always --style=numbers --line-range=:500 {} 2>/dev/null || echo {}'"
 	];
 	
 	changeDirWidgetOptions = [
