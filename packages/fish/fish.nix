@@ -229,7 +229,6 @@ programs.fzf = {
 		"--height 40%"
 		"--layout=reverse"
 		"--border"
-		"--preview 'bat --color=always --style=numbers --line-range=:500 {} 2>/dev/null || echo {}'"
 	];
 	
 	fileWidgetOptions = [
