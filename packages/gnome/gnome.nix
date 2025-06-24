@@ -3,6 +3,11 @@
 {
   dconf.settings = {
 
+   # Text scaling
+    "org/gnome/desktop/interface" = {
+      text-scaling-factor = 2.0;  # 200% text size
+    };
+
    # Scrolling settings
     "org/gnome/desktop/peripherals/touchpad" = {
       natural-scroll = false;  # Set to true for Mac-like scrolling
