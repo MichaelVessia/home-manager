@@ -18,22 +18,51 @@ This configuration uses a modular approach where each package or service has its
 
 ## Dotfiles Management
 
-Some configuration files (dotfiles) are managed separately using [chezmoi](https://www.chezmoi.io/) in another repository. This allows for:
+Some configuration files (dotfiles) are managed separately using [chezmoi](https://www.chezmoi.io/) in another repository. This hybrid approach allows for:
 - Separation of concerns between package installation and configuration
-- Easier dotfile sharing across different systems
+- Easier dotfile sharing across different systems and operating systems
 - Template-based configuration management
+- **Cross-platform compatibility**: Chezmoi handles dotfiles for systems where home-manager isn't available or practical (e.g., macOS, work environments, systems where Nix isn't installed)
 
 ## Usage
 
-To apply changes:
-```bash
-home-manager switch
-```
+This configuration includes a Makefile for common tasks:
 
-To update packages:
+### Apply Changes
 ```bash
-nix flake update  # if using flakes
-home-manager switch
+make update
+```
+Equivalent to: `home-manager switch --flake .#michaelvessia`
+
+### Force Update (with backup)
+```bash
+make force-update
+```
+Creates a backup and applies changes, also checks AppArmor profiles.
+
+### Update AppArmor Profiles
+```bash
+make apparmor
+```
+Updates AppArmor profiles for Nix packages (requires sudo).
+
+### Setup Node.js
+```bash
+make setup-node
+```
+Installs Node.js and global npm packages via custom script.
+
+### Clean Up
+```bash
+make clean
+```
+Runs `nix-collect-garbage -d` to remove old generations and free disk space.
+
+### Manual Commands
+For direct home-manager usage:
+```bash
+home-manager switch --flake .#michaelvessia
+nix flake update  # Update flake inputs
 ```
 
 ## Directory Navigation
