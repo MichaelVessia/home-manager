@@ -27,6 +27,7 @@ in
     ./packages/syncthing/syncthing.nix
     ./packages/cursor/cursor.nix
     ./packages/bitwarden/bitwarden.nix
+    ./packages/spotify/spotify.nix
   ];
 
   nix = {

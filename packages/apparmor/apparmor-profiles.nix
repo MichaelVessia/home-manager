@@ -9,6 +9,7 @@ let
     obsidian = "obsidian";
     cursor = "cursor";
     bitwarden = "bitwarden";
+    spotify = "spotify";
     #discord = "discord";
     #slack = "slack";
     #zoom = "zoom";
