@@ -8,6 +8,7 @@ let
     brave = "brave";
     obsidian = "obsidian";
     cursor = "cursor";
+    bitwarden = "bitwarden";
     #discord = "discord";
     #slack = "slack";
     #zoom = "zoom";

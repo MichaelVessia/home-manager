@@ -26,6 +26,7 @@ in
     ./packages/obsidian/obsidian.nix
     ./packages/syncthing/syncthing.nix
     ./packages/cursor/cursor.nix
+    ./packages/bitwarden/bitwarden.nix
   ];
 
   nix = {
