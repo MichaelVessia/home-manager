@@ -3,6 +3,8 @@
 {
 	home.packages = with pkgs; [
 		fish
+		zoxide
+		fzf
 	];
 
 programs.fish = {
@@ -17,6 +19,10 @@ programs.fish = {
 		
 		"dots" = "chezmoi cd";
 		"hm" = "cd ~/home-manager";
+
+		# zoxide aliases
+		"cd" = "z";
+		"cdi" = "zi";
 
     "ls" = "eza";
     "ll" = "eza -l";
@@ -215,5 +221,26 @@ programs.fish = {
 		end
 		'';
 	};
+
+	interactiveShellInit = ''
+		# Initialize zoxide
+		${pkgs.zoxide}/bin/zoxide init fish | source
+
+		# FZF key bindings and completion
+		${pkgs.fzf}/share/fzf/key-bindings.fish | source
+		${pkgs.fzf}/share/fzf/completion.fish | source
+
+		# FZF configuration
+		set -gx FZF_DEFAULT_OPTS "--height 40% --layout=reverse --border --preview 'bat --color=always --style=numbers --line-range=:500 {}' 2>/dev/null || echo {}"
+		set -gx FZF_CTRL_T_OPTS "--preview 'bat --color=always --style=numbers --line-range=:500 {}' 2>/dev/null || echo {}"
+		set -gx FZF_ALT_C_OPTS "--preview 'eza --tree --level=2 --color=always {}' 2>/dev/null || echo {}"
+
+		# Use fd for fzf if available (faster than find)
+		if command -v fd > /dev/null
+			set -gx FZF_DEFAULT_COMMAND 'fd --type f --hidden --follow --exclude .git'
+			set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
+			set -gx FZF_ALT_C_COMMAND 'fd --type d --hidden --follow --exclude .git'
+		end
+	'';
 };
 }
