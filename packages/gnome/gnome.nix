@@ -5,7 +5,7 @@
 
    # Text scaling
     "org/gnome/desktop/interface" = {
-      text-scaling-factor = 2.0;  # 200% text size
+      text-scaling-factor = 1.5;  # 150% text size
     };
 
    # Scrolling settings
