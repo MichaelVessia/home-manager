@@ -20,6 +20,11 @@
       "application/xhtml+xml" = ["brave-browser.desktop"];
       "application/x-extension-xhtml" = ["brave-browser.desktop"];
       "application/x-extension-xht" = ["brave-browser.desktop"];
+      
+      # Video mime types that might open in browser
+      "video/webm" = ["brave-browser.desktop"];
+      "video/mp4" = ["brave-browser.desktop"];
+      "video/x-matroska" = ["brave-browser.desktop"];
     };
   };
 

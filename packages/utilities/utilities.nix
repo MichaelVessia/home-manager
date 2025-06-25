@@ -29,6 +29,7 @@
     xsel # clipboard manager
     chezmoi # dotfiles manager
     cheat # cheatsheet for shortcuts
+    kooha # screen recorder
     
     # Common tools
     curl # data transfer tool
@@ -36,5 +37,6 @@
     jq # JSON processor
     unzip # archive extractor
     glow # render markdown in terminal
+    ffmpeg # video/audio converter
   ];
 }
