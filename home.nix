@@ -28,6 +28,7 @@ in
     ./packages/cursor/cursor.nix
     ./packages/bitwarden/bitwarden.nix
     ./packages/spotify/spotify.nix
+    ./packages/cheatsheets/default.nix
   ];
 
   nix = {

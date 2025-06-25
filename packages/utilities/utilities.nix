@@ -28,6 +28,7 @@
     # System utilities
     xsel # clipboard manager
     chezmoi # dotfiles manager
+    cheat # cheatsheet for shortcuts
     
     # Common tools
     curl # data transfer tool
