@@ -1,45 +1,9 @@
 { config, pkgs, lib, ... }:
 
 let
-  # Function to create a cheatsheet derivation
-  mkCheatsheet = name: content: pkgs.writeTextFile {
-    name = "cheat-${name}";
-    text = content;
-    destination = "/share/cheat/${name}";
-  };
-
-  # Ghostty cheatsheet
-  ghosttyCheatsheet = mkCheatsheet "ghostty" ''
-    # Ghostty Custom Keybinds
-    # Leader key: Ctrl+A
-
-    ## Tab Navigation
-    Ctrl+A, 1-9   Go to tab 1-9
-    Ctrl+A, 0     Go to last tab
-    Ctrl+A, p     Previous tab
-    Ctrl+A, n     Next tab
-
-    ## Tab Management
-    Ctrl+A, c     New tab
-    Ctrl+A, x     Close tab
-    Ctrl+A, h     Move tab left
-    Ctrl+A, l     Move tab right
-    Ctrl+A, t     Toggle tab overview
-  '';
-
-  # GNOME cheatsheet
-  gnomeCheatsheet = mkCheatsheet "gnome" ''
-    # GNOME Custom Keybinds
-
-    ## Application Shortcuts (Pinned Apps)
-    Alt+1-9       Switch to pinned application 1-9
-
-    ## Workspace Navigation
-    Super+1-6     Switch to workspace 1-6
-    
-    ## Window Management
-    Super+Shift+1-6   Move window to workspace 1-6
-  '';
+  # Import individual cheatsheets
+  ghosttyCheatsheet = import ./ghostty.nix { inherit pkgs; };
+  gnomeCheatsheet = import ./gnome.nix { inherit pkgs; };
 
   # Combined cheatsheets package
   cheatsheets = pkgs.symlinkJoin {
