@@ -103,6 +103,11 @@ home.file.".bashrc".text = lib.mkAfter ''
     executable = true;
   };
 
+  home.file."scripts/install-docker.sh" = {
+    source = ./scripts/install-docker.sh;
+    executable = true;
+  };
+
 nixpkgs = {
 		config = {
 			allowUnfree = true;

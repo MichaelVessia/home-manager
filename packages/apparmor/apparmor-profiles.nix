@@ -10,6 +10,7 @@ let
     cursor = "cursor";
     bitwarden = "bitwarden";
     spotify = "spotify";
+    bubblewrap = "bubblewrap";
     #discord = "discord";
     #slack = "slack";
     #zoom = "zoom";
