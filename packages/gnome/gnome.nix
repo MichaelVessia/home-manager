@@ -61,6 +61,19 @@
     "org/gnome/shell/extensions/dash-to-dock" = {
       hot-keys = false;
     };
+
+    # Custom keyboard shortcuts
+    "org/gnome/settings-daemon/plugins/media-keys" = {
+      custom-keybindings = [
+        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
+      ];
+    };
+
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
+      name = "UltraWhisper";
+      command = "/home/michaelvessia/.config/ultrawhisper/trigger.sh";
+      binding = "<Primary>grave";
+    };
     
     "org/gnome/shell" = {
       enabled-extensions = [
