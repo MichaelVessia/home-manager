@@ -97,5 +97,10 @@
       color-scheme="prefer-dark";
       gtk-theme="Adwaita-dark";
     };
+
+    # Disable automatic brightness adjustment
+    "org/gnome/settings-daemon/plugins/power" = {
+      ambient-enabled = false;
+    };
   };
 }

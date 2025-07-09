@@ -30,6 +30,7 @@ in
     ./packages/spotify/spotify.nix
     ./packages/cheatsheets/default.nix
     ./packages/bun/bun.nix
+    ./packages/gnome-network-displays/gnome-network-displays.nix
   ];
 
   nix = {
