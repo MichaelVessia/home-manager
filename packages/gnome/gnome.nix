@@ -27,17 +27,13 @@
       num-workspaces = 6;
     };
     
-    # Alt + number for pinned applications
     "org/gnome/shell/keybindings" = {
-      switch-to-application-1 = ["<Alt>1"];
-      switch-to-application-2 = ["<Alt>2"];
-      switch-to-application-3 = ["<Alt>3"];
-      switch-to-application-4 = ["<Alt>4"];
-      switch-to-application-5 = ["<Alt>5"];
-      switch-to-application-6 = ["<Alt>6"];
-      switch-to-application-7 = ["<Alt>7"];
-      switch-to-application-8 = ["<Alt>8"];
-      switch-to-application-9 = ["<Alt>9"];
+      switch-to-application-1=[];
+      switch-to-application-2=[];
+      switch-to-application-3=[];
+      switch-to-application-4=[];
+      toggle-message-tray=[];
+      toggle-overview=["<Ctrl>Up"];
     };
     
     # Super + number for workspace switching
@@ -55,6 +51,9 @@
       move-to-workspace-4 = ["<Super><Shift>4"];
       move-to-workspace-5 = ["<Super><Shift>5"];
       move-to-workspace-6 = ["<Super><Shift>6"];
+      # Disable some conflicting binds
+      switch-input-source = [""];
+      switch-input-source-backward = [ ];
     };
     
     # Disable Ubuntu Dock number key shortcuts
@@ -78,7 +77,10 @@
     "org/gnome/shell" = {
       enabled-extensions = [
         "space-bar@luchrioh"
+        "switcher@landau.fi"
+        "just-perfection-desktop@just-perfection"
       ];
+
       # Set favorite (pinned) applications in the dash
       favorite-apps = [
         "com.mitchellh.ghostty.desktop"
@@ -86,6 +88,14 @@
         "obsidian.desktop"
         "signal.desktop"
       ];
+    };
+
+    "org/gnome/desktop/interface"={
+      show-battery-percentage=true;
+      enable-hot-corners=false;
+      enable-animations=false;
+      color-scheme="prefer-dark";
+      gtk-theme="Adwaita-dark";
     };
   };
 }
