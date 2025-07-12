@@ -36,21 +36,21 @@
       toggle-overview=["<Ctrl>Up"];
     };
     
-    # Super + number for workspace switching
+    # Alt + number for workspace switching, matching my Super + number macos muscle memory
     "org/gnome/desktop/wm/keybindings" = {
-      switch-to-workspace-1 = ["<Super>1"];
-      switch-to-workspace-2 = ["<Super>2"];
-      switch-to-workspace-3 = ["<Super>3"];
-      switch-to-workspace-4 = ["<Super>4"];
-      switch-to-workspace-5 = ["<Super>5"];
-      switch-to-workspace-6 = ["<Super>6"];
+      switch-to-workspace-1 = ["<Alt>1"];
+      switch-to-workspace-2 = ["<Alt>2"];
+      switch-to-workspace-3 = ["<Alt>3"];
+      switch-to-workspace-4 = ["<Alt>4"];
+      switch-to-workspace-5 = ["<Alt>5"];
+      switch-to-workspace-6 = ["<Alt>6"];
       # Add move-to-workspace keys
-      move-to-workspace-1 = ["<Super><Shift>1"];
-      move-to-workspace-2 = ["<Super><Shift>2"];
-      move-to-workspace-3 = ["<Super><Shift>3"];
-      move-to-workspace-4 = ["<Super><Shift>4"];
-      move-to-workspace-5 = ["<Super><Shift>5"];
-      move-to-workspace-6 = ["<Super><Shift>6"];
+      move-to-workspace-1 = ["<Alt><Shift>1"];
+      move-to-workspace-2 = ["<Alt><Shift>2"];
+      move-to-workspace-3 = ["<Alt><Shift>3"];
+      move-to-workspace-4 = ["<Alt><Shift>4"];
+      move-to-workspace-5 = ["<Alt><Shift>5"];
+      move-to-workspace-6 = ["<Alt><Shift>6"];
       # Disable some conflicting binds
       switch-input-source = [""];
       switch-input-source-backward = [ ];
