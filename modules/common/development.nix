@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ../../packages/volta/volta.nix
+    ../../packages/mise/mise.nix
     ../../packages/bun/bun.nix
     ../../packages/cursor/cursor.nix
   ];

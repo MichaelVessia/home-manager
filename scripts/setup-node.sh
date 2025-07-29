@@ -2,20 +2,21 @@
 
 set -euo pipefail
 
-echo "Setting up Node.js and global npm packages..."
+echo "Setting up Node.js and global npm packages using mise..."
 
-# Check if volta is available
-if ! command -v volta &> /dev/null; then
-    echo "Error: volta not found in PATH"
+# Check if mise is available
+if ! command -v mise &> /dev/null; then
+    echo "Error: mise not found in PATH"
+    echo "Run 'make darwin' first to install mise"
     exit 1
 fi
 
-# Install latest Node.js LTS via volta if not already installed
-if ! volta list node | grep -q "node@"; then
-    echo "Installing latest Node.js LTS via volta..."
-    volta install node@latest
+# Install latest Node.js LTS via mise if not already installed
+if ! mise list node 2>/dev/null | grep -q "node"; then
+    echo "Installing latest Node.js LTS via mise..."
+    mise use -g node@lts
 else
-    echo "Node.js already installed via volta"
+    echo "Node.js already installed via mise"
 fi
 
 # List of global npm packages to install
@@ -36,3 +37,7 @@ done
 echo "Node.js setup complete!"
 echo "Installed Node version: $(node --version)"
 echo "Installed npm version: $(npm --version)"
+echo ""
+echo "To use different Node versions in projects:"
+echo "  mise use node@18    # Use Node 18 in current project"
+echo "  mise use node@20    # Use Node 20 in current project"
