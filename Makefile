@@ -7,24 +7,16 @@ linux:
 darwin:
 	home-manager switch --flake .#michaelvessia@darwin
 
-# Default target (auto-detect platform)
-.PHONY: update
-update:
-ifeq ($(shell uname),Darwin)
-	@$(MAKE) darwin
-else
-	@$(MAKE) linux
-endif
 
-.PHONY: force-update
-force-update:
-ifeq ($(shell uname),Darwin)
-	home-manager switch --flake .#michaelvessia@darwin -b backup-$(shell date +%Y%m%d-%H%M%S)
-else
+.PHONY: force-update-linux
+force-update-linux:
 	home-manager switch --flake .#michaelvessia@linux -b backup-$(shell date +%Y%m%d-%H%M%S)
 	@echo "Checking AppArmor profiles..."
 	@~/scripts/generate-apparmor-profiles.sh || echo "Run 'make apparmor' to update AppArmor profiles"
-endif
+
+.PHONY: force-update-darwin
+force-update-darwin:
+	home-manager switch --flake .#michaelvessia@darwin -b backup-$(shell date +%Y%m%d-%H%M%S)
 
 # Update AppArmor profiles for Nix packages
 .PHONY: apparmor
