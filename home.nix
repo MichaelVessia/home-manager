@@ -3,10 +3,20 @@
 let
   # Share username across various bits of the config
   username = "michaelvessia";
+  platform = import ./lib/platform.nix { inherit lib pkgs; };
 in
 {
+  # DEPRECATED: This file is deprecated in favor of the new modular structure.
+  # Use hosts/linux-home.nix or hosts/darwin-work.nix instead.
+  #
+  # To migrate:
+  # - For Linux: home-manager switch --flake .#michaelvessia@linux
+  # - For macOS: home-manager switch --flake .#michaelvessia@darwin
+  #
+  # The old imports below are kept for reference but should not be used.
+
   imports = [
-    # Copied structure from https://codeberg.org/justgivemeaname/.dotfiles/src/branch/main/home-manager/packages
+    # Old structure - use hosts/ files instead
     ./packages/nixgl/nixgl.nix
     ./packages/gnome/gnome.nix
     ./packages/signal-desktop/signal-desktop.nix

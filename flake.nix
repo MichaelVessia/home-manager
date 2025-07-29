@@ -9,18 +9,54 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Add nix-darwin for macOS support
+    darwin = {
+      url = "github:lnl7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nixpkgs, home-manager, ... }:
+  outputs = { self, nixpkgs, home-manager, darwin, ... }:
     let
-      lib = nixpkgs.lib;
-      system = "x86_64-linux";
-      pkgs = import nixpkgs { inherit system; };
+      # Systems we support
+      supportedSystems = [ "x86_64-linux" "aarch64-darwin" "x86_64-darwin" ];
+      
+      # Helper function to generate outputs for each system
+      forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
+      
+      # Package sets for each system
+      pkgsFor = forAllSystems (system: 
+        import nixpkgs { 
+          inherit system;
+          config = {
+            allowUnfree = true;
+            allowUnfreePredicate = (_: true);
+          };
+        }
+      );
     in {
+      # Home Manager configurations
       homeConfigurations = {
-        michaelvessia = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = [ ./home.nix ];
+        # Linux home configuration
+        "michaelvessia@linux" = home-manager.lib.homeManagerConfiguration {
+          pkgs = pkgsFor.x86_64-linux;
+          modules = [ ./hosts/linux-home.nix ];
+        };
+        
+        # macOS work configuration (adjust architecture as needed)
+        "michaelvessia@darwin" = home-manager.lib.homeManagerConfiguration {
+          pkgs = pkgsFor.aarch64-darwin; # Use x86_64-darwin if on Intel Mac
+          modules = [ ./hosts/darwin-work.nix ];
+        };
+      };
+      
+      # Darwin system configurations (optional, for system-level macOS settings)
+      darwinConfigurations = {
+        "work-mac" = darwin.lib.darwinSystem {
+          system = "aarch64-darwin"; # Use x86_64-darwin if on Intel Mac
+          modules = [
+            # You can add system-level Darwin configuration here if needed
+          ];
         };
       };
     };
