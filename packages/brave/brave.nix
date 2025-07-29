@@ -1,12 +1,12 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   home.packages = with pkgs; [
     brave
   ];
 
-  # Set Brave as the default browser
-  xdg.mimeApps = {
+  # Set Brave as the default browser (Linux only - macOS uses different system)
+  xdg.mimeApps = lib.mkIf pkgs.stdenv.isLinux {
     enable = true;
     defaultApplications = {
       "text/html" = ["brave-browser.desktop"];
