@@ -1,8 +1,8 @@
 { lib, config, pkgs, ... }:
 
 let
-  # Share username across various bits of the config
-  username = "michaelvessia";
+  # Use actual system username on macOS, configured username on Linux
+  username = if pkgs.stdenv.isDarwin then "michael.vessia" else "michaelvessia";
   platform = import ../lib/platform.nix { inherit lib pkgs; };
 in
 {
