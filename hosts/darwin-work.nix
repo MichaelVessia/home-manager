@@ -46,7 +46,7 @@ in
     if [ ! -f "$HOME/.ssh/id_ed25519" ]; then
       $DRY_RUN_CMD mkdir -p $HOME/.ssh
       $DRY_RUN_CMD chmod 700 $HOME/.ssh
-      $DRY_RUN_CMD ${pkgs.openssh}/bin/ssh-keygen -t ed25519 -C "michael@vessia.net" -f $HOME/.ssh/id_ed25519 -N ""
+      $DRY_RUN_CMD ${pkgs.openssh}/bin/ssh-keygen -t ed25519 -C "michael.vessia@flosports.tv" -f $HOME/.ssh/id_ed25519 -N ""
       $DRY_RUN_CMD echo "SSH key generated! Add this public key to GitHub:"
       $DRY_RUN_CMD cat $HOME/.ssh/id_ed25519.pub
     fi
