@@ -38,5 +38,6 @@
     unzip # archive extractor
     glow # render markdown in terminal
     ffmpeg # video/audio converter
+    pinta # image editor
   ];
 }
