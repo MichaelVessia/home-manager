@@ -1,9 +1,8 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
-
-	home.packages = with pkgs; [
-    # Install Ghostty wrapped with nixGL for proper OpenGL support
+	home.packages = with pkgs; lib.optionals pkgs.stdenv.isLinux [
+    # Install Ghostty wrapped with nixGL for proper OpenGL support (Linux only)
     (config.lib.nixGL.wrap ghostty)
 	];
 
