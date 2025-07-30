@@ -1,5 +1,78 @@
 { config, pkgs, lib, ... }:
 
+let
+  # Organize packages by category
+  brewPackages = {
+    # GUI Applications (casks) - with SHA checksums
+    casksWithSha = [
+      { name = "1password"; description = "Password manager"; }
+      { name = "brave-browser"; description = "Web browser"; }
+      { name = "ghostty"; description = "GPU-accelerated terminal emulator"; }
+      { name = "karabiner-elements"; description = "Keyboard customization tool"; }
+      { name = "raycast"; description = "Spotlight replacement and productivity launcher"; note = "Manual setup required: Configure Command+Space hotkey and app switching (Cmd+1-4) in Raycast Preferences"; }
+      { name = "shottr"; description = "Screenshot tool"; }
+      { name = "superwhisper"; description = "Speech-to-text"; }
+      { name = "jordanbaird-ice"; description = "Status bar management"; }
+      { name = "figma"; description = "Design"; }
+      { name = "claude"; description = "AI"; }
+      { name = "chatgpt"; description = "AI"; }
+    ];
+    
+    # Disabled casks (kept for reference)
+    disabledCasks = [
+      # { name = "rectangle"; description = "Window management"; }
+      # { name = "alfred"; description = "Spotlight replacement"; }
+    ];
+    
+    # GUI Applications (casks) - without SHA checksums
+    casksNoSha = [
+      { name = "google-drive"; description = "Google Drive desktop application"; }
+    ];
+    
+    # CLI tools that work better from Homebrew
+    brews = [
+      { name = "mas"; description = "Mac App Store CLI"; }
+    ];
+    
+    # Mac App Store apps (requires mas)
+    masApps = [
+      { name = "Xcode"; id = 497799835; }
+      # { name = "Amphetamine"; id = 937984704; }
+    ];
+  };
+  
+  # Helper function to format a cask entry
+  formatCask = cask: 
+    if cask ? note
+    then ''cask "${cask.name}" # ${cask.description}\n                         # ${cask.note}''
+    else ''cask "${cask.name}" # ${cask.description}'';
+  
+  # Helper function to format a brew entry
+  formatBrew = brew: ''brew "${brew.name}" # ${brew.description}'';
+  
+  # Helper function to format a mas entry
+  formatMas = app: ''mas "${app.name}", id: ${toString app.id}'';
+  
+  # Generate Brewfile content
+  mainBrewfileContent = ''
+    # GUI Applications (casks) - with SHA checksums
+    ${lib.concatMapStringsSep "\n" formatCask brewPackages.casksWithSha}
+    ${lib.concatMapStringsSep "\n" (cask: "# ${formatCask cask}") brewPackages.disabledCasks}
+    
+    # CLI tools that work better from Homebrew
+    ${lib.concatMapStringsSep "\n" formatBrew brewPackages.brews}
+    
+    # Mac App Store apps (requires mas)
+    ${lib.concatMapStringsSep "\n" formatMas brewPackages.masApps}
+  '';
+  
+  noshaBrewfileContent = ''
+    # GUI Applications (casks) - without SHA checksums
+    # These casks don't have SHA256 checksums defined in homebrew-cask
+    ${lib.concatMapStringsSep "\n" formatCask brewPackages.casksNoSha}
+  '';
+
+in
 {
   # Homebrew management for macOS
   # This module handles Homebrew installation and package management
@@ -17,6 +90,10 @@
       HOMEBREW_NO_INSECURE_REDIRECT = "1";
       HOMEBREW_CASK_OPTS = "--require-sha";
     };
+    
+    # Write Brewfiles as home-manager managed files
+    home.file.".config/homebrew/Brewfile".text = mainBrewfileContent;
+    home.file.".config/homebrew/Brewfile.nosha".text = noshaBrewfileContent;
     
     # Install Homebrew if not present, then manage packages
     home.activation.brewSetup = lib.hm.dag.entryAfter ["writeBoundary"] ''
@@ -45,38 +122,6 @@
         if command -v brew >/dev/null 2>&1; then
           echo "Managing Homebrew packages..."
           
-          # Create main Brewfile (with SHA requirements)
-          cat > "$HOME/.config/homebrew/Brewfile" <<EOF
-# GUI Applications (casks) - with SHA checksums
-cask "1password"         # Password manager
-cask "brave-browser"     # Web browser
-cask "ghostty"           # GPU-accelerated terminal emulator
-cask "karabiner-elements" # Keyboard customization tool
-cask "raycast"           # Spotlight replacement and productivity launcher
-                         # Manual setup required: Configure Command+Space hotkey and app switching (Cmd+1-4) in Raycast Preferences
-cask "shottr"             # Screenshot tool
-cask "superwhisper"       # Speech-to-text
-cask "jordanbaird-ice"    # Status bar management
-cask "figma"             # Design
-cask "claude"            # AI
-cask "chatgpt"           # AI
-# cask "rectangle"       # Window management
-# cask "alfred"          # Spotlight replacement
-
-# CLI tools that work better from Homebrew
-# brew "mas"  # Mac App Store CLI
-
-# Mac App Store apps (requires mas)
-# mas "Amphetamine", id: 937984704
-EOF
-
-          # Create separate Brewfile for casks without SHA checksums
-          cat > "$HOME/.config/homebrew/Brewfile.nosha" <<EOF
-# GUI Applications (casks) - without SHA checksums
-# These casks don't have SHA256 checksums defined in homebrew-cask
-cask "google-drive"      # Google Drive desktop application
-EOF
-          
           # Install packages with SHA requirements
           echo "Installing packages from main Brewfile (with SHA requirements)..."
           brew bundle --file="$HOME/.config/homebrew/Brewfile" || true
@@ -92,8 +137,5 @@ EOF
         fi
       fi
     '';
-    
-    # Ensure the Brewfile directory exists
-    home.file.".config/homebrew/.keep".text = "";
   };
 }
