@@ -19,5 +19,18 @@
       url."git@github.com:".insteadOf = "https://github.com/";
       push.autoSetupRemote = true;
     };
+    delta = {
+      enable = true;
+      options = {
+        navigate = true;
+        line-numbers = true;
+        side-by-side = true;
+        syntax-theme = "Dracula";
+        plus-style = "syntax \"#384532\"";
+        minus-style = "syntax \"#644242\"";
+        hyperlinks = true;
+        hyperlinks-file-link-format = "vscode://file/{path}:{line}";
+      };
+    };
   };
 }
