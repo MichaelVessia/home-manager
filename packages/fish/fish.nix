@@ -10,6 +10,11 @@ programs.fish = {
 	enable = true;
 
 	interactiveShellInit = pkgs.lib.optionalString pkgs.stdenv.isDarwin ''
+		# Source Nix environment
+		if test -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
+			source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
+		end
+		
 		# Add Homebrew to PATH for macOS
 		if test -d /opt/homebrew/bin
 			fish_add_path /opt/homebrew/bin

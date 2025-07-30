@@ -32,10 +32,10 @@
       bold-is-bright = true
       
       # Shell integration
-      shell-integration = detect
+      shell-integration = fish
       
       # Default shell command
-      command = /Users/michael.vessia/.nix-profile/bin/fish
+      command = /bin/bash -c "source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh && exec /Users/michael.vessia/.nix-profile/bin/fish"
       
       # Tab management keybindings with leader key (ctrl+a)
       keybind = ctrl+a>1=goto_tab:1
