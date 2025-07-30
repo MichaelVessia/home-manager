@@ -24,6 +24,7 @@
     gcc # C compiler
     gnumake # Build automation tool
     ast-grep # structured grep for code
+    devbox # instant, easy, predictable shells and containers
     
     # Common tools
     curl # data transfer tool

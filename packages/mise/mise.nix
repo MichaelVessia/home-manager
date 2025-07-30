@@ -13,4 +13,10 @@
   programs.bash.initExtra = ''
     eval "$(mise activate bash)"
   '';
+  
+  # Configure mise settings
+  home.file.".config/mise/config.toml".text = ''
+    [settings]
+    idiomatic_version_file_enable_tools = ["node"]
+  '';
 }
