@@ -4,89 +4,66 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a NixOS Home Manager configuration for user `michaelvessia` using Nix Flakes. It provides declarative user environment management with a modular architecture where each package/service has its own configuration file.
+This is a cross-platform Home Manager configuration for user `michaelvessia` (Linux) / `michael.vessia` (macOS) using Nix Flakes. It provides declarative user environment management with a modular architecture supporting both Linux and macOS systems.
 
-## Core Commands
+## Important: Command Execution Policy
 
-### Primary Development Commands
-- `make` or `make update` - Apply Home Manager configuration changes
-- `make force-update` - Force update with timestamped backup
-- `make clean` - Clean up old Nix generations to free disk space
-- `make apparmor` - Update AppArmor security profiles (requires sudo)
-- `make setup-node` - Setup Node.js and global npm packages
-
-### Manual Commands
-- `home-manager switch --flake .#michaelvessia` - Apply configuration directly
-- `nix-collect-garbage -d` - Clean up old Nix generations
+**NEVER run any make commands, home-manager commands, or nix commands. The user will handle all command execution themselves.**
 
 ## Architecture
 
 ### Core Structure
-- `flake.nix` - Main flake configuration defining inputs and outputs
-- `home.nix` - Central configuration file that imports all package modules
-- `packages/` - Modular package configurations, each in its own directory
+- `flake.nix` - Main flake configuration with cross-platform support
+- `hosts/` - Host-specific configurations
+  - `darwin-work.nix` - macOS work configuration
+  - `linux-home.nix` - Linux home configuration  
+- `modules/` - Modular platform-specific configurations
+  - `common/` - Shared configurations across platforms
+  - `darwin/` - macOS-specific modules (Homebrew, system settings)
+  - `linux/` - Linux-specific modules (AppArmor, GNOME)
+- `packages/` - Individual application configurations
+- `lib/` - Utility functions and platform detection
 - `scripts/` - Utility scripts for setup and maintenance
 
 ### Key Configuration Features
+- **Cross-Platform Support**: Unified configuration for Linux and macOS
 - **Hybrid Dotfiles**: Uses both Home Manager (packages) and Chezmoi (dotfiles from separate repo)
-- **Modular Design**: Each application has its own `.nix` file in `packages/`
-- **Security**: Custom AppArmor profiles for Nix-installed applications
-- **GNOME Customization**: Extensive dconf settings and extensions
-- **Development Environment**: Neovim, Fish shell, Ghostty terminal, Volta for Node.js
+- **Modular Design**: Platform-specific modules with shared common configurations
+- **macOS Integration**: Homebrew package management and system configuration
+- **Linux Security**: Custom AppArmor profiles for Nix-installed applications
+- **Development Environment**: Neovim, Fish shell, Ghostty terminal, Node.js tooling
 
-### Package Structure
-Each package module follows the pattern:
-```
-packages/<package-name>/<package-name>.nix
-```
+### Platform-Specific Features
+**Linux:**
+- GNOME desktop customization with dconf settings and extensions
+- AppArmor security profiles
+- Username: `michaelvessia`
+
+**macOS:**
+- Homebrew package management with security-focused configuration
+- Karabiner Elements for keyboard customization
+- Username: `michael.vessia` (different from Linux)
 
 ### Important Files
-- `home.nix:8-33` - All package imports (add new packages here)
-- `home.nix:45-49` - Global environment variables
-- `home.nix:56-62` - Chezmoi integration for dotfiles
-- `home.nix:64-81` - SSH key generation automation
+- `flake.nix:39-51` - Cross-platform Home Manager configurations
+- `hosts/darwin-work.nix` - macOS-specific configuration and imports
+- `hosts/linux-home.nix` - Linux-specific configuration and imports
+- `modules/darwin/brew.nix` - Homebrew package management
+- `lib/platform.nix` - Platform detection utilities
 
 ## Development Workflow
 
 ### Adding New Packages
 1. Create `packages/<package-name>/<package-name>.nix`
-2. Add import to `home.nix` imports list
-3. Run `make` to apply changes
+2. Add import to appropriate host configuration in `hosts/`
+3. User applies changes with platform-specific commands
 
 ### System Configuration
-- Target system: `x86_64-linux`
-- NixOS version: `25.05`
-- Home Manager version: `release-25.05`
-- User: `michaelvessia`
-
-### Special Directories
-- `~/scripts/` - Utility scripts (automatically made executable)
-- Aliases: `hm` (this directory), `dots` (chezmoi dotfiles)
-
-## Integration Points
+- **Supported Systems**: `x86_64-linux`, `aarch64-darwin`, `x86_64-darwin`
+- **NixOS/nixpkgs version**: `25.05`
+- **Home Manager version**: `release-25.05`
 
 ### External Dependencies
 - **Chezmoi**: Manages detailed dotfiles from `git@github.com:MichaelVessia/dots.git`
-- **Volta**: Node.js version management
-- **AppArmor**: Security profiles for applications
-- **GNOME**: Desktop environment with custom settings
-
-### Automated Setup
-- SSH key generation (ED25519) if missing
-- Chezmoi initialization and updates
-- Fish shell auto-start from bash
-- AppArmor profile updates
-
-## Testing & Validation
-
-Always test configuration changes with:
-```bash
-make update
-```
-
-For major changes, use:
-```bash
-make force-update
-```
-
-No specific test framework - validation is done through successful Home Manager switch operations.
+- **Homebrew** (macOS): GUI applications and system tools
+- **Node.js tooling**: Development environment setup

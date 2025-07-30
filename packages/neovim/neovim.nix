@@ -8,6 +8,12 @@
     mermaid-cli # mermaid diagram support
     luarocks # Lua package manager for neovim
     lua # Lua language for neovim config
+    
+    # Language servers (instead of using Mason)
+    nil # Nix language server
+    lua-language-server # Lua language server
+    stylua # Lua formatter
+    shfmt # Shell formatter
   ];
 
   programs.neovim = {

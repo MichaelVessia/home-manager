@@ -25,7 +25,6 @@ in
     ./packages/fish/fish.nix
     ./packages/starship/starship.nix
     ./packages/git/git.nix
-    ./packages/utilities/utilities.nix
     ./packages/fonts/fonts.nix
     ./packages/gnome-extensions/gnome-extensions.nix
     ./packages/volta/volta.nix

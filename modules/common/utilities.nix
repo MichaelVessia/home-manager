@@ -15,9 +15,23 @@
     ripgrep # fast text search tool (better than grep)
     tree # directory tree viewer
     ncdu # disk usage analyzer with ncurses interface
+    atuin # Replacement for shell history
+    
+    # Development utilities  
+    gh # GitHub CLI
+    git-lfs # Git Large File Storage
+    lazygit # Git TUI
+    gcc # C compiler
+    gnumake # Build automation tool
+    ast-grep # structured grep for code
     
     # Common tools
+    curl # data transfer tool
+    wget # web file downloader
+    jq # JSON processor
+    unzip # archive extractor
     glow # render markdown in terminal
+    ffmpeg # video/audio converter
     chezmoi # dotfiles manager
     cheat # cheatsheet for shortcuts
   ];
