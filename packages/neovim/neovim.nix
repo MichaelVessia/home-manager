@@ -22,5 +22,12 @@
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
+    
+    # Make Rust toolchain available to LazyVim's Nix extra
+    extraPackages = with pkgs; [
+      cargo
+      rustc
+      rust-analyzer # LSP server for Rust
+    ];
   };
 }
