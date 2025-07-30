@@ -20,7 +20,6 @@
     # Development utilities  
     gh # GitHub CLI
     git-lfs # Git Large File Storage
-    lazygit # Git TUI
     gcc # C compiler
     gnumake # Build automation tool
     ast-grep # structured grep for code
@@ -40,5 +39,6 @@
   imports = [
     ../../packages/cheatsheets/default.nix
     ../../packages/chezmoi/chezmoi.nix
+    ../../packages/lazygit/lazygit.nix
   ];
 }
