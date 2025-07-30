@@ -16,6 +16,9 @@
   
   # Configure mise settings
   home.file.".config/mise/config.toml".text = ''
+    [tools]
+    node = "lts"
+    
     [settings]
     idiomatic_version_file_enable_tools = ["node"]
   '';

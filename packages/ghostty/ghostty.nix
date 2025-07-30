@@ -19,7 +19,7 @@
       theme = dark:catppuccin-frappe,light:catppuccin-latte
       
       # Background opacity (0.0 to 1.0, where 1.0 is fully opaque)
-      background-opacity = 0.95
+      background-opacity = 1.0
       
       # Window padding
       window-padding-x = 10
@@ -35,7 +35,7 @@
       shell-integration = fish
       
       # Default shell command
-      command = /bin/bash -c "source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh && exec /Users/michael.vessia/.nix-profile/bin/fish"
+      command = /Users/michael.vessia/.nix-profile/bin/fish
       
       # Tab management keybindings with leader key (ctrl+a)
       keybind = ctrl+a>1=goto_tab:1
