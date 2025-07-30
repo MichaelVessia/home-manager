@@ -39,5 +39,6 @@
   
   imports = [
     ../../packages/cheatsheets/default.nix
+    ../../packages/chezmoi/chezmoi.nix
   ];
 }
