@@ -4,6 +4,7 @@
   home.packages = with pkgs; [
     mise
     gnupg  # Required for yarn plugin
+    libyaml  # Required for Ruby psych extension
   ];
   
   # Add mise to shell initialization
@@ -21,9 +22,10 @@
   home.file.".config/mise/config.toml".text = ''
     [tools]
     node = "lts"
+    ruby = "3.3.6"
     
     [settings]
-    idiomatic_version_file_enable_tools = ["node", "yarn"]
+    idiomatic_version_file_enable_tools = ["node", "yarn", "ruby"]
   '';
   
   # Install yarn plugin on activation
