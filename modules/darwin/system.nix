@@ -30,6 +30,18 @@
       $DRY_RUN_CMD /usr/bin/defaults write NSGlobalDomain KeyRepeat -int 2
       $DRY_RUN_CMD /usr/bin/defaults write NSGlobalDomain InitialKeyRepeat -int 15
       
+      # Disable default macOS screenshot shortcuts (since we use Shottr)
+      # Disable Cmd+Shift+3 (capture entire screen)
+      $DRY_RUN_CMD /usr/libexec/PlistBuddy -c "Set ':AppleSymbolicHotKeys:28:enabled' 'false'" "$HOME/Library/Preferences/com.apple.symbolichotkeys.plist" 2>/dev/null || true
+      # Disable Cmd+Shift+4 (capture selected area)
+      $DRY_RUN_CMD /usr/libexec/PlistBuddy -c "Set ':AppleSymbolicHotKeys:29:enabled' 'false'" "$HOME/Library/Preferences/com.apple.symbolichotkeys.plist" 2>/dev/null || true
+      # Disable Cmd+Shift+5 (screenshot and recording options)
+      $DRY_RUN_CMD /usr/libexec/PlistBuddy -c "Set ':AppleSymbolicHotKeys:184:enabled' 'false'" "$HOME/Library/Preferences/com.apple.symbolichotkeys.plist" 2>/dev/null || true
+      # Disable Ctrl+Cmd+Shift+3 (copy entire screen to clipboard)
+      $DRY_RUN_CMD /usr/libexec/PlistBuddy -c "Set ':AppleSymbolicHotKeys:30:enabled' 'false'" "$HOME/Library/Preferences/com.apple.symbolichotkeys.plist" 2>/dev/null || true
+      # Disable Ctrl+Cmd+Shift+4 (copy selected area to clipboard)
+      $DRY_RUN_CMD /usr/libexec/PlistBuddy -c "Set ':AppleSymbolicHotKeys:31:enabled' 'false'" "$HOME/Library/Preferences/com.apple.symbolichotkeys.plist" 2>/dev/null || true
+      
       # Disable Spotlight Command+Space hotkey to allow Raycast to use it
       # Note: Raycast must be configured manually via GUI - it doesn't support CLI configuration
       # After running this config, manually set Raycast hotkey to Command+Space in Raycast Preferences

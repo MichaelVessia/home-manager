@@ -54,6 +54,12 @@ cask "ghostty"           # GPU-accelerated terminal emulator
 cask "karabiner-elements" # Keyboard customization tool
 cask "raycast"           # Spotlight replacement and productivity launcher
                          # Manual setup required: Configure Command+Space hotkey and app switching (Cmd+1-4) in Raycast Preferences
+cask "shottr"             # Screenshot tool
+cask "superwhisper"       # Speech-to-text
+cask "jordanbaird-ice"    # Status bar management
+cask "figma"             # Design
+cask "claude"            # AI
+cask "chatgpt"           # AI
 # cask "rectangle"       # Window management
 # cask "alfred"          # Spotlight replacement
 
