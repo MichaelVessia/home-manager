@@ -48,6 +48,7 @@
           # Create main Brewfile (with SHA requirements)
           cat > "$HOME/.config/homebrew/Brewfile" <<EOF
 # GUI Applications (casks) - with SHA checksums
+cask "1password"         # Password manager
 cask "brave-browser"     # Web browser
 cask "ghostty"           # GPU-accelerated terminal emulator
 cask "karabiner-elements" # Keyboard customization tool
