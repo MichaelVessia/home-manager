@@ -1,11 +1,14 @@
 { config, pkgs, lib, ... }:
 
 {
-	home.packages = with pkgs; lib.optionals pkgs.stdenv.isLinux [
+  # Only install the package on Linux since it's broken on Darwin
+  # macOS users should install via Homebrew (cask "ghostty")
+  home.packages = with pkgs; lib.optionals pkgs.stdenv.isLinux [
     # Install Ghostty wrapped with nixGL for proper OpenGL support (Linux only)
     (config.lib.nixGL.wrap ghostty)
-	];
+  ];
 
+  # Configuration works on all platforms
   xdg.configFile = {
     "ghostty/config".text = ''
       # Font configuration
@@ -30,6 +33,9 @@
       
       # Shell integration
       shell-integration = detect
+      
+      # Default shell command
+      command = /Users/michael.vessia/.nix-profile/bin/fish
       
       # Tab management keybindings with leader key (ctrl+a)
       keybind = ctrl+a>1=goto_tab:1

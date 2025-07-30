@@ -9,6 +9,16 @@ programs.fish = {
 
 	enable = true;
 
+	interactiveShellInit = pkgs.lib.optionalString pkgs.stdenv.isDarwin ''
+		# Add Homebrew to PATH for macOS
+		if test -d /opt/homebrew/bin
+			fish_add_path /opt/homebrew/bin
+		end
+		if test -d /usr/local/bin
+			fish_add_path /usr/local/bin
+		end
+	'';
+
 	shellAliases = {
 		".." = "cd ..";
 		"..." = "cd ../..";
