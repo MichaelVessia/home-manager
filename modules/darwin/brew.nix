@@ -10,7 +10,7 @@
       cat > "$HOME/.config/homebrew/Brewfile" <<EOF
 # GUI Applications (casks)
 # Add any macOS-specific GUI apps here that aren't in nixpkgs
-# Example:
+cask "brave-browser"  # Web browser
 # cask "rectangle"  # Window management
 # cask "alfred"     # Spotlight replacement
 
