@@ -11,6 +11,7 @@ in
     ../modules/darwin
     ../packages/fonts/fonts.nix
     ../packages/home-manager/home-manager.nix
+    ../packages/karabiner/karabiner.nix
   ];
 
   nix = {

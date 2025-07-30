@@ -26,6 +26,7 @@
       $DRY_RUN_CMD /usr/bin/defaults write NSGlobalDomain KeyRepeat -int 2
       $DRY_RUN_CMD /usr/bin/defaults write NSGlobalDomain InitialKeyRepeat -int 15
       
+      
       # Restart affected apps
       $DRY_RUN_CMD /usr/bin/killall Finder || true
       $DRY_RUN_CMD /usr/bin/killall SystemUIServer || true

@@ -48,10 +48,11 @@
           # Create a Brewfile
           cat > "$HOME/.config/homebrew/Brewfile" <<EOF
 # GUI Applications (casks)
-cask "brave-browser"  # Web browser
-cask "ghostty"        # GPU-accelerated terminal emulator
-# cask "rectangle"  # Window management
-# cask "alfred"     # Spotlight replacement
+cask "brave-browser"     # Web browser
+cask "ghostty"           # GPU-accelerated terminal emulator
+cask "karabiner-elements" # Keyboard customization tool
+# cask "rectangle"       # Window management
+# cask "alfred"          # Spotlight replacement
 
 # CLI tools that work better from Homebrew
 # brew "mas"  # Mac App Store CLI
