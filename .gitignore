@@ -1,0 +1,11 @@
+# Secrets directory
+secrets/
+
+# Result symlinks from nix builds
+result
+result-*
+
+# Temporary files
+*.tmp
+*.swp
+*~

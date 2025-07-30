@@ -9,6 +9,7 @@ in
   imports = [
     ../modules/common
     ../modules/darwin
+    ../packages/aws/aws.nix
     ../packages/fonts/fonts.nix
     ../packages/home-manager/home-manager.nix
     ../packages/karabiner/karabiner.nix
@@ -27,6 +28,11 @@ in
     sessionVariables = {
       TERM = "xterm-256color";
       PATH = "$HOME/scripts:$PATH";
+      FLOCASTS_NPM_TOKEN = 
+        let secretFile = toString ../secrets/flocasts-npm-token;
+        in if builtins.pathExists secretFile 
+           then lib.strings.removeSuffix "\n" (builtins.readFile secretFile)
+           else "";
     };
   };
   

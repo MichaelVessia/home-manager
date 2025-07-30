@@ -3,6 +3,7 @@
 {
 	home.packages = with pkgs; [
 		fish
+		fishPlugins.bass
 	];
 
 programs.fish = {
@@ -21,6 +22,16 @@ programs.fish = {
 		end
 		if test -d /usr/local/bin
 			fish_add_path /usr/local/bin
+		end
+		
+		# Load Home Manager session variables
+		if test -f $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
+			bass source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
+		end
+		
+		# Load FLOCASTS_NPM_TOKEN from secrets
+		if test -f $HOME/home-manager/secrets/flocasts-npm-token
+			set -gx FLOCASTS_NPM_TOKEN (cat $HOME/home-manager/secrets/flocasts-npm-token | tr -d '\n')
 		end
 	'';
 
