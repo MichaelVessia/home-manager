@@ -51,6 +51,8 @@
 cask "brave-browser"     # Web browser
 cask "ghostty"           # GPU-accelerated terminal emulator
 cask "karabiner-elements" # Keyboard customization tool
+cask "raycast"           # Spotlight replacement and productivity launcher
+                         # Manual setup required: Configure Command+Space hotkey and app switching (Cmd+1-4) in Raycast Preferences
 # cask "rectangle"       # Window management
 # cask "alfred"          # Spotlight replacement
 

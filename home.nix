@@ -32,7 +32,6 @@ in
     ./packages/media/media.nix
     ./packages/home-manager/home-manager.nix
     ./packages/apparmor/apparmor-profiles.nix
-    ./packages/brave/brave.nix
     ./packages/obsidian/obsidian.nix
     ./packages/syncthing/syncthing.nix
     ./packages/cursor/cursor.nix
