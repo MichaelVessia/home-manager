@@ -36,7 +36,7 @@ let
     
     # Mac App Store apps (requires mas)
     masApps = [
-      { name = "Xcode"; id = 497799835; }
+      { name = "Xcode"; id = 497799835; note = "Large download (~10GB), may take a long time"; }
       # { name = "Amphetamine"; id = 937984704; }
     ];
   };
@@ -51,7 +51,10 @@ let
   formatBrew = brew: ''brew "${brew.name}" # ${brew.description}'';
   
   # Helper function to format a mas entry
-  formatMas = app: ''mas "${app.name}", id: ${toString app.id}'';
+  formatMas = app: 
+    if app ? note
+    then ''# ${app.note}\nmas "${app.name}", id: ${toString app.id}''
+    else ''mas "${app.name}", id: ${toString app.id}'';
   
   # Generate Brewfile content
   mainBrewfileContent = ''
@@ -124,13 +127,25 @@ in
           
           # Install packages with SHA requirements
           echo "Installing packages from main Brewfile (with SHA requirements)..."
-          brew bundle --file="$HOME/.config/homebrew/Brewfile" || true
+          brew bundle --verbose --file="$HOME/.config/homebrew/Brewfile" || true
           
           # Install packages without SHA requirements
           echo "Installing packages from no-SHA Brewfile..."
-          HOMEBREW_CASK_OPTS="" brew bundle --file="$HOME/.config/homebrew/Brewfile.nosha" || true
+          HOMEBREW_CASK_OPTS="" brew bundle --verbose --file="$HOME/.config/homebrew/Brewfile.nosha" || true
           
           echo "Homebrew packages installed successfully!"
+          
+          # Show mas installation status
+          echo ""
+          echo "Mac App Store installations:"
+          if command -v mas >/dev/null 2>&1; then
+            echo "Currently installed Mac App Store apps:"
+            mas list || echo "No apps installed yet"
+            echo ""
+            echo "Note: Mac App Store apps (like Xcode) can take a long time to download."
+            echo "You can check download progress in the Mac App Store app."
+            echo "To install manually, run: mas install 497799835"
+          fi
         else
           echo "Warning: Homebrew installation completed but 'brew' command not found in PATH"
           echo "You may need to restart your terminal and run 'make darwin' again"
