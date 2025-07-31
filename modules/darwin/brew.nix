@@ -16,6 +16,7 @@ let
       { name = "figma"; description = "Design"; }
       { name = "claude"; description = "AI"; }
       { name = "chatgpt"; description = "AI"; }
+      { name = "openlens"; description = "Kubernetes IDE"; }
     ];
     
     # Disabled casks (kept for reference)
