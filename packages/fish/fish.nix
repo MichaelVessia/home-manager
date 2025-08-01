@@ -33,6 +33,11 @@ programs.fish = {
 		if test -f $HOME/home-manager/secrets/flocasts-npm-token
 			set -gx FLOCASTS_NPM_TOKEN (cat $HOME/home-manager/secrets/flocasts-npm-token | tr -d '\n')
 		end
+		
+		# Load JIRA_API_TOKEN from secrets
+		if test -f $HOME/home-manager/secrets/jira-api-token
+			set -gx JIRA_API_TOKEN (cat $HOME/home-manager/secrets/jira-api-token | tr -d '\n')
+		end
 	'';
 
 	shellAliases = {

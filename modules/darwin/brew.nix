@@ -38,7 +38,7 @@ let
     # Mac App Store apps (requires mas)
     masApps = [
       { name = "Xcode"; id = 497799835; note = "Large download (~10GB), may take a long time"; }
-      # { name = "Amphetamine"; id = 937984704; }
+      { name = "Amphetamine"; id = 937984704; note = "To allow use of laptop via hdmi while lid is closed"; }
     ];
   };
   

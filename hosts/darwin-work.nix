@@ -12,6 +12,7 @@ in
     ../packages/aws/aws.nix
     ../packages/fonts/fonts.nix
     ../packages/home-manager/home-manager.nix
+    ../packages/jira/jira.nix
     ../packages/karabiner/karabiner.nix
   ];
 
