@@ -1,5 +1,12 @@
 { config, pkgs, lib, ... }:
 
+let
+  # Platform-specific shell command
+  shellCommand = if pkgs.stdenv.isDarwin then
+    ''/bin/bash -c "source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh && exec /Users/michael.vessia/.nix-profile/bin/fish"''
+  else
+    ''fish'';
+in
 {
   # Only install the package on Linux since it's broken on Darwin
   # macOS users should install via Homebrew (cask "ghostty")
@@ -35,7 +42,7 @@
       shell-integration = fish
       
       # Default shell command
-      command = /bin/bash -c "source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh && exec /Users/michael.vessia/.nix-profile/bin/fish"
+      command = ${shellCommand}
       
       # Tab management keybindings with leader key (ctrl+a)
       keybind = ctrl+a>1=goto_tab:1
