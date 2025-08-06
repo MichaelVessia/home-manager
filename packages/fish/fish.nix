@@ -248,6 +248,14 @@ programs.fish = {
 		 $argv
 		end
 		'';
+
+		ytarchiveplaylists = ''
+		function ytarchiveplaylists
+		 yt-dlp --yes-playlist -f best -ciw \
+		 -o "/downloads/youtube-dl/%(uploader)s/playlists/%(playlist)s/videos/%(playlist_index)s - %(title)s.%(ext)s" \
+		 -v $argv
+		end
+		'';
 	};
 
 };
