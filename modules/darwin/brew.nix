@@ -17,6 +17,7 @@ let
       { name = "claude"; description = "AI"; }
       { name = "chatgpt"; description = "AI"; }
       { name = "openlens"; description = "Kubernetes IDE"; }
+      { name = "yaak"; description = "REST, GraphQL and gRPC client"; }
     ];
     
     # Disabled casks (kept for reference)
