@@ -10,6 +10,7 @@ in
     ../modules/common
     ../modules/darwin
     ../packages/aws/aws.nix
+    ../packages/cursor/cursor.nix
     ../packages/fonts/fonts.nix
     ../packages/home-manager/home-manager.nix
     ../packages/jira/jira.nix
