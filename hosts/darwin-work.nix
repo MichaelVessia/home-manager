@@ -10,11 +10,13 @@ in
     ../modules/common
     ../modules/darwin
     ../packages/aws/aws.nix
+    ../packages/claude-code/claude-code.nix
     ../packages/cursor/cursor.nix
     ../packages/fonts/fonts.nix
     ../packages/home-manager/home-manager.nix
     ../packages/jira/jira.nix
     ../packages/karabiner/karabiner.nix
+    ../packages/yazi/yazi.nix
   ];
 
   nix = {
@@ -29,7 +31,7 @@ in
     
     sessionVariables = {
       TERM = "xterm-256color";
-      PATH = "$HOME/scripts:$PATH";
+      PATH = "$HOME/.local/bin:$HOME/scripts:$PATH";
       FLOCASTS_NPM_TOKEN = 
         let secretFile = toString ../secrets/flocasts-npm-token;
         in if builtins.pathExists secretFile 
