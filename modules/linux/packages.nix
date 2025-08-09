@@ -8,6 +8,7 @@
     ../../packages/tailscale/tailscale.nix
     ../../packages/syncthing/syncthing.nix
     ../../packages/media/media.nix
+    #../../packages/kids/kids.nix
   ];
   
   home.packages = with pkgs; [
