@@ -71,11 +71,8 @@ in
     fi
   '';
 
-  # Make scripts executable (only Node setup is relevant for macOS)
-  home.file."scripts/setup-node.sh" = {
-    source = ../scripts/setup-node.sh;
-    executable = true;
-  };
+  # Disable problematic cleanup that uses GNU readlink -e (not available on macOS)
+  home.activation.linkGeneration = lib.mkForce "";
 
   nixpkgs = {
     config = {

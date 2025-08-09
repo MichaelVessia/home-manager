@@ -98,12 +98,6 @@ home.file.".bashrc".text = lib.mkAfter ''
   fi
 '';
 
-  # Make scripts executable
-  home.file."scripts/setup-node.sh" = {
-    source = ./scripts/setup-node.sh;
-    executable = true;
-  };
-
   home.file."scripts/generate-apparmor-profiles.sh" = {
     source = ./scripts/generate-apparmor-profiles.sh;
     executable = true;

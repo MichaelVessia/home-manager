@@ -7,6 +7,9 @@
     darwin.apple_sdk.frameworks.Security
     darwin.apple_sdk.frameworks.CoreServices
     
+    # GNU utilities to replace BSD versions on macOS
+    coreutils # Provides greadlink/readlink with GNU options (-e, -m) needed by Home Manager
+    
     # Add any macOS-specific packages here
   ];
 }

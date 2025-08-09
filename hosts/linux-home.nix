@@ -28,7 +28,7 @@ in
     
     sessionVariables = {
       TERM = "xterm-256color";
-      PATH = "$HOME/scripts:$PATH";
+      PATH = "$HOME/.local/bin:$HOME/scripts:$PATH";
     };
   };
   
@@ -64,10 +64,6 @@ in
   '';
 
   # Make scripts executable
-  home.file."scripts/setup-node.sh" = {
-    source = ../scripts/setup-node.sh;
-    executable = true;
-  };
 
   home.file."scripts/generate-apparmor-profiles.sh" = {
     source = ../scripts/generate-apparmor-profiles.sh;
