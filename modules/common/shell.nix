@@ -3,6 +3,7 @@
 {
   imports = [
     ../../packages/fish/fish.nix
+    ../../packages/nushell/nushell.nix
     ../../packages/starship/starship.nix
   ];
   
