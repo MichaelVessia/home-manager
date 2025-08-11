@@ -11,7 +11,7 @@
 
     # Add nix-darwin for macOS support
     darwin = {
-      url = "github:lnl7/nix-darwin";
+      url = "github:lnl7/nix-darwin/nix-darwin-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -50,12 +50,16 @@
         };
       };
       
-      # Darwin system configurations (optional, for system-level macOS settings)
+      # Darwin system configurations for system-level macOS settings
       darwinConfigurations = {
         "work-mac" = darwin.lib.darwinSystem {
           system = "aarch64-darwin"; # Use x86_64-darwin if on Intel Mac
           modules = [
-            # You can add system-level Darwin configuration here if needed
+            ./hosts/darwin-system.nix
+            # Enable home-manager integration
+            {
+              nixpkgs.config.allowUnfree = true;
+            }
           ];
         };
       };

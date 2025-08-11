@@ -5,6 +5,14 @@ linux:
 
 .PHONY: darwin
 darwin:
+	@if command -v darwin-rebuild >/dev/null 2>&1; then \
+		echo "Activating nix-darwin system configuration..."; \
+		sudo darwin-rebuild switch --flake .#work-mac; \
+	else \
+		echo "Installing nix-darwin first..."; \
+		sudo nix run nix-darwin -- switch --flake .#work-mac; \
+	fi
+	@echo "Activating Home Manager configuration..."
 	home-manager switch --flake .#michaelvessia@darwin
 
 
@@ -16,6 +24,14 @@ force-update-linux:
 
 .PHONY: force-update-darwin
 force-update-darwin:
+	@if command -v darwin-rebuild >/dev/null 2>&1; then \
+		echo "Force updating nix-darwin system configuration..."; \
+		sudo darwin-rebuild switch --flake .#work-mac; \
+	else \
+		echo "Installing nix-darwin first..."; \
+		sudo nix run nix-darwin -- switch --flake .#work-mac; \
+	fi
+	@echo "Force updating Home Manager configuration..."
 	home-manager switch --flake .#michaelvessia@darwin -b backup-$(shell date +%Y%m%d-%H%M%S)
 
 # Update AppArmor profiles for Nix packages
