@@ -3,8 +3,13 @@
 linux:
 	home-manager switch --flake .#michaelvessia@linux
 
+# Full darwin update (system + home manager)
 .PHONY: darwin
-darwin:
+darwin: darwin-system darwin-home
+
+# System-level darwin configuration (requires sudo)
+.PHONY: darwin-system
+darwin-system:
 	@if command -v darwin-rebuild >/dev/null 2>&1; then \
 		echo "Activating nix-darwin system configuration..."; \
 		sudo darwin-rebuild switch --flake .#work-mac; \
@@ -12,6 +17,10 @@ darwin:
 		echo "Installing nix-darwin first..."; \
 		sudo nix run nix-darwin -- switch --flake .#work-mac; \
 	fi
+
+# Home Manager configuration for darwin (no sudo required)
+.PHONY: darwin-home
+darwin-home:
 	@echo "Activating Home Manager configuration..."
 	home-manager switch --flake .#michaelvessia@darwin
 

@@ -7,6 +7,12 @@
     gzip
   ];
 
+  # Configure Claude CLI settings
+  home.file.".claude/settings.json".text = builtins.toJSON {
+    "$schema" = "https://json.schemastore.org/claude-code-settings.json";
+    "model" = "opusplan";
+  };
+
   # Install Claude Code CLI using official installer
   # This provides the 'claude' command for CLI and headless environments
   home.activation.installClaudeCLI = lib.hm.dag.entryAfter ["writeBoundary"] ''

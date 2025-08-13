@@ -1,0 +1,36 @@
+[delta]
+    navigate = true
+    line-numbers = true
+    side-by-side = true
+    hyperlinks = true
+    hyperlinks-file-link-format = vscode://file/{path}:{line}
+    
+[delta "light"]
+    light = true
+    syntax-theme = GitHub
+    plus-style = "bold black #d0f0c0"
+    minus-style = "bold black #fecaca"
+    plus-emph-style = "bold black #a7f3d0"
+    minus-emph-style = "bold black #f87171"
+    line-numbers-plus-style = "bold #059669"
+    line-numbers-minus-style = "bold #dc2626"
+    line-numbers-zero-style = "#6b7280"
+    file-style = "bold #374151"
+    file-decoration-style = "bold #374151 ul"
+    hunk-header-style = "bold #4f46e5"
+    hunk-header-decoration-style = "bold #4f46e5 ul"
+
+[delta "dark"]
+    dark = true
+    syntax-theme = Dracula  
+    plus-style = "bold #ffffff #1f2937"
+    minus-style = "bold #ffffff #7f1d1d"
+    plus-emph-style = "bold #ffffff #166534"
+    minus-emph-style = "bold #ffffff #b91c1c"
+    line-numbers-plus-style = "bold #10b981"
+    line-numbers-minus-style = "bold #f59e0b"
+    line-numbers-zero-style = "#9ca3af"
+    file-style = "bold #f3f4f6"
+    file-decoration-style = "bold #f3f4f6 ul" 
+    hunk-header-style = "bold #8b5cf6"
+    hunk-header-decoration-style = "bold #8b5cf6 ul"

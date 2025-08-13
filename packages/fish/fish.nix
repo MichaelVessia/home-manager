@@ -24,6 +24,11 @@ programs.fish = {
 			fish_add_path /usr/local/bin
 		end
 		
+		# Add ~/.local/bin to PATH for user binaries (e.g., Claude CLI)
+		if test -d ~/.local/bin
+			fish_add_path ~/.local/bin
+		end
+		
 		# Load Home Manager session variables
 		if test -f $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
 			bass source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
