@@ -1,6 +1,20 @@
 { config, lib, pkgs, ... }:
 
 {
+  # Install Claude statusline script
+  home.file."bin/claude-statusline".source = ../../scripts/claude-statusline.sh;
+  home.file."bin/claude-statusline".executable = true;
+
+  # Create ~/.claude/settings.json with statusline configuration
+  home.file.".claude/settings.json".text = builtins.toJSON {
+    "$schema" = "https://json.schemastore.org/claude-code-settings.json";
+    model = "opusplan";
+    statusLine = {
+      type = "command";
+      command = "~/bin/claude-statusline";
+    };
+  };
+
   # Create ~/.claude/CLAUDE.md with development guidelines
   home.file.".claude/CLAUDE.md".text = ''
     # Development Guidelines

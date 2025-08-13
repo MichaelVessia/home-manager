@@ -10,7 +10,6 @@ in
     ../modules/common
     ../modules/darwin
     ../packages/aws/aws.nix
-    ../packages/claude-code/claude-code.nix
     ../packages/cursor/cursor.nix
     ../packages/fonts/fonts.nix
     ../packages/home-manager/home-manager.nix
