@@ -100,7 +100,7 @@ description: Commit, push, and open a draft PR
 
 Based on the above changes:
 1. Create a new branch if on main. If provided as an argument, include the JIRA ticket in the branch name
-2. Create a single commit with an appropriate message
+2. Create a single commit with an appropriate message. DO NOT include any Claude attribution or "Generated with Claude Code" text in the commit message.
 3. Push the branch to origin
 4. Create a pull request using `gh pr create --draft`. Ensure the PR title adheres to conventional commits format
 5. You have the capability to call multiple tools in a single response. You MUST do all of the above in a single message. Do not use any other tools or do anything else. Do not send any other text or messages besides these tool calls.
@@ -122,7 +122,7 @@ description: Stage all changed files and create a commit
 
 Stage all changed files and create a single commit:
 1. Stage all modified, added, and deleted files using appropriate git add commands
-2. Create a commit with a descriptive message that summarizes all the changes
+2. Create a commit with a descriptive message that summarizes all the changes. DO NOT include any Claude attribution or "Generated with Claude Code" text in the commit message.
 3. You have the capability to call multiple tools in a single response. You MUST do all of the above in a single message. Do not use any other tools or do anything else. Do not send any other text or messages besides these tool calls.
 EOF
     
@@ -145,7 +145,7 @@ Analyze the changed files and group them into logical chunks, then create separa
 2. Group files that belong together logically (e.g., related feature changes, bug fixes, refactoring, etc.)
 3. For each logical chunk:
    - Stage only the files belonging to that chunk
-   - Create a commit with a descriptive message specific to that chunk
+   - Create a commit with a descriptive message specific to that chunk. DO NOT include any Claude attribution or "Generated with Claude Code" text in commit messages.
 4. Continue until all changes are committed
 5. You have the capability to call multiple tools in a single response. You MUST do all staging and committing in a single message. Do not use any other tools or do anything else. Do not send any other text or messages besides these tool calls.
 EOF
@@ -166,14 +166,13 @@ description: Commit changes and push to remote
 
 Based on the above changes:
 1. Stage any changed files with appropriate commit message
-2. Create a single commit with a descriptive message
+2. Create a single commit with a descriptive message. DO NOT include any Claude attribution or "Generated with Claude Code" text in the commit message.
 3. Push the changes to the remote branch
 4. You have the capability to call multiple tools in a single response. You MUST do all of the above in a single message. Do not use any other tools or do anything else. Do not send any other text or messages besides these tool calls.
 EOF
     
-    # Install the statusline script
-    $DRY_RUN_CMD cp ${toString ../../scripts/claude-statusline.sh} $HOME/.claude/claude-statusline
-    $DRY_RUN_CMD chmod +x $HOME/.claude/claude-statusline
+    # Install the statusline script with proper permissions
+    $DRY_RUN_CMD install -m 755 ${toString ../../scripts/claude-statusline.sh} $HOME/.claude/claude-statusline
     
     # Create settings.json
     $DRY_RUN_CMD cat > $HOME/.claude/settings.json << 'EOF'
