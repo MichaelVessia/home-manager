@@ -54,6 +54,7 @@ programs.fish = {
 		"dots" = "chezmoi cd";
 		"hm" = "cd ~/home-manager";
 
+
 		# zoxide aliases (cd is now handled by zoxide directly)
 		"cdi" = "zi";
 
