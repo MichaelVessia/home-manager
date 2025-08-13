@@ -1,19 +1,194 @@
 { config, lib, pkgs, ... }:
 
 {
-  # Install Claude statusline script
-  home.file."bin/claude-statusline".source = ../../scripts/claude-statusline.sh;
-  home.file."bin/claude-statusline".executable = true;
+  # Dependencies needed for Claude CLI installation
+  home.packages = with pkgs; [
+    curl
+    gnutar
+    gzip
+  ];
 
-  # Create ~/.claude/settings.json with statusline configuration
-  home.file.".claude/settings.json".text = builtins.toJSON {
-    "$schema" = "https://json.schemastore.org/claude-code-settings.json";
-    model = "opusplan";
-    statusLine = {
-      type = "command";
-      command = "~/bin/claude-statusline";
-    };
-  };
+  # Install Claude Code CLI using official installer and configure settings
+  home.activation.installClaudeCLI = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    # Check if Claude CLI needs installation
+    CLAUDE_PATH="$HOME/.local/bin/claude"
+    
+    if [[ -x "$CLAUDE_PATH" ]]; then
+      # Claude CLI is already installed, check if it's working
+      if $CLAUDE_PATH --version &>/dev/null; then
+        CURRENT_VERSION=$($CLAUDE_PATH --version 2>/dev/null)
+        echo "Claude CLI is already installed: $CURRENT_VERSION"
+      else
+        # Install if not working
+        export PATH="${pkgs.curl}/bin:${pkgs.gnutar}/bin:${pkgs.gzip}/bin:/usr/bin:''${PATH}"
+        $DRY_RUN_CMD ${pkgs.curl}/bin/curl -fsSL claude.ai/install.sh | ${pkgs.bash}/bin/bash
+      fi
+    else
+      # Install Claude Code CLI using official installer
+      export PATH="${pkgs.curl}/bin:${pkgs.gnutar}/bin:${pkgs.gzip}/bin:/usr/bin:''${PATH}"
+      $DRY_RUN_CMD ${pkgs.curl}/bin/curl -fsSL claude.ai/install.sh | ${pkgs.bash}/bin/bash
+    fi
+    
+    # Create/update Claude settings with statusline configuration
+    # This runs after the installer to override any default settings
+    echo "Configuring Claude statusline..."
+    $DRY_RUN_CMD mkdir -p $HOME/.claude
+    $DRY_RUN_CMD mkdir -p $HOME/.claude/commands
+    # Create command files
+    echo "Creating Claude command files..."
+    $DRY_RUN_CMD cat > $HOME/.claude/commands/diff-bugs.md << 'EOF'
+---
+description: Find bugs in the current diff
+---
+
+## Context
+
+- Current git status: !`git status`
+- Current git diff: !`git diff`
+
+## Your task
+
+Analyze the current diff and identify any potential bugs, issues, or code quality problems. Look for:
+1. Logic errors or incorrect implementations
+2. Potential runtime errors or exceptions
+3. Type mismatches or incorrect API usage
+4. Missing error handling
+5. Code that doesn't follow best practices
+6. Security vulnerabilities
+
+Provide specific feedback with line references where applicable.
+EOF
+    
+    $DRY_RUN_CMD cat > $HOME/.claude/commands/branch-bugs.md << 'EOF'
+---
+description: Find bugs in the current branch compared to main
+---
+
+## Context
+
+- Current branch: !`git branch --show-current`
+- Branch diff vs main: !`git diff main...HEAD`
+- Recent commits on branch: !`git log --oneline main..HEAD`
+
+## Your task
+
+Analyze all changes in the current branch compared to main and identify any potential bugs, issues, or code quality problems. Look for:
+1. Logic errors or incorrect implementations
+2. Potential runtime errors or exceptions
+3. Type mismatches or incorrect API usage
+4. Missing error handling
+5. Code that doesn't follow best practices
+6. Security vulnerabilities
+7. Breaking changes that might affect existing functionality
+
+Provide specific feedback with file and line references where applicable.
+EOF
+    
+    $DRY_RUN_CMD cat > $HOME/.claude/commands/commit-push-pr.md << 'EOF'
+---
+allowed-tools: Bash(git checkout --branch:*), Bash(git add:*), Bash(git status:*), Bash(git push:*), Bash(git commit:*), Bash(gh pr create:*)
+description: Commit, push, and open a draft PR
+---
+
+## Context
+
+- Current git status: !`git status`
+- Current git diff (staged and unstaged changes): !`git diff HEAD`
+- Current branch: !`git branch --show-current`
+
+## Your task
+
+Based on the above changes:
+1. Create a new branch if on main. If provided as an argument, include the JIRA ticket in the branch name
+2. Create a single commit with an appropriate message
+3. Push the branch to origin
+4. Create a pull request using `gh pr create --draft`. Ensure the PR title adheres to conventional commits format
+5. You have the capability to call multiple tools in a single response. You MUST do all of the above in a single message. Do not use any other tools or do anything else. Do not send any other text or messages besides these tool calls.
+EOF
+    
+    $DRY_RUN_CMD cat > $HOME/.claude/commands/commit-all.md << 'EOF'
+---
+allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*)
+description: Stage all changed files and create a commit
+---
+
+## Context
+
+- Current git status: !`git status`
+- Current git diff (unstaged changes): !`git diff`
+- Current git diff (staged changes): !`git diff --cached`
+
+## Your task
+
+Stage all changed files and create a single commit:
+1. Stage all modified, added, and deleted files using appropriate git add commands
+2. Create a commit with a descriptive message that summarizes all the changes
+3. You have the capability to call multiple tools in a single response. You MUST do all of the above in a single message. Do not use any other tools or do anything else. Do not send any other text or messages besides these tool calls.
+EOF
+    
+    $DRY_RUN_CMD cat > $HOME/.claude/commands/commit-chunks.md << 'EOF'
+---
+allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*), Bash(git diff:*)
+description: Group changed files into logical chunks and commit each separately
+---
+
+## Context
+
+- Current git status: !`git status`
+- Current git diff (unstaged changes): !`git diff`
+- Current git diff (staged changes): !`git diff --cached`
+
+## Your task
+
+Analyze the changed files and group them into logical chunks, then create separate commits for each chunk:
+1. Review all changed files and their modifications
+2. Group files that belong together logically (e.g., related feature changes, bug fixes, refactoring, etc.)
+3. For each logical chunk:
+   - Stage only the files belonging to that chunk
+   - Create a commit with a descriptive message specific to that chunk
+4. Continue until all changes are committed
+5. You have the capability to call multiple tools in a single response. You MUST do all staging and committing in a single message. Do not use any other tools or do anything else. Do not send any other text or messages besides these tool calls.
+EOF
+    
+    $DRY_RUN_CMD cat > $HOME/.claude/commands/commit-and-push.md << 'EOF'
+---
+allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git push:*), Bash(git commit:*)
+description: Commit changes and push to remote
+---
+
+## Context
+
+- Current git status: !`git status`
+- Current git diff (staged and unstaged changes): !`git diff HEAD`
+- Current branch: !`git branch --show-current`
+
+## Your task
+
+Based on the above changes:
+1. Stage any changed files with appropriate commit message
+2. Create a single commit with a descriptive message
+3. Push the changes to the remote branch
+4. You have the capability to call multiple tools in a single response. You MUST do all of the above in a single message. Do not use any other tools or do anything else. Do not send any other text or messages besides these tool calls.
+EOF
+    
+    # Install the statusline script
+    $DRY_RUN_CMD cp ${toString ../../scripts/claude-statusline.sh} $HOME/.claude/claude-statusline
+    $DRY_RUN_CMD chmod +x $HOME/.claude/claude-statusline
+    
+    # Create settings.json
+    $DRY_RUN_CMD cat > $HOME/.claude/settings.json << 'EOF'
+${builtins.toJSON {
+      "$schema" = "https://json.schemastore.org/claude-code-settings.json";
+      model = "opusplan";
+      statusLine = {
+        type = "command";
+        command = "$HOME/.claude/claude-statusline";
+      };
+    }}
+EOF
+  '';
+  # Note: Both the statusline script and settings.json are created in the
+  # activation script above to ensure they run AFTER the Claude CLI installer
 
   # Create ~/.claude/CLAUDE.md with development guidelines
   home.file.".claude/CLAUDE.md".text = ''
@@ -170,4 +345,5 @@
     - Learn from existing implementations
     - Stop after 3 failed attempts and reassess
   '';
+
 }
