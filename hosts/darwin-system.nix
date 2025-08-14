@@ -34,6 +34,7 @@
       "openlens"
       "yaak"
       "orbstack"
+      "zoom"
       # GUI Applications without SHA checksums
       "google-drive"
     ];
