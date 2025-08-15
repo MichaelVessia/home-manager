@@ -31,6 +31,7 @@
     jq # JSON processor
     unzip # archive extractor
     glow # render markdown in terminal
+    typst # modern typesetting system
     ffmpeg # video/audio converter
     chezmoi # dotfiles manager
     cheat # cheatsheet for shortcuts
