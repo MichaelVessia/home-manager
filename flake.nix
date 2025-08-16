@@ -43,19 +43,19 @@
           modules = [ ./hosts/linux-home.nix ];
         };
         
-        # macOS work configuration (adjust architecture as needed)
+        # macOS configuration (adjust architecture as needed)
         "michaelvessia@darwin" = home-manager.lib.homeManagerConfiguration {
           pkgs = pkgsFor.aarch64-darwin; # Use x86_64-darwin if on Intel Mac
-          modules = [ ./hosts/darwin-work.nix ];
+          modules = [ ./hosts/darwin-home.nix ];
         };
       };
       
       # Darwin system configurations for system-level macOS settings
       darwinConfigurations = {
-        "work-mac" = darwin.lib.darwinSystem {
+        "macbook" = darwin.lib.darwinSystem {
           system = "aarch64-darwin"; # Use x86_64-darwin if on Intel Mac
           modules = [
-            ./hosts/darwin-system.nix
+            ./hosts/darwin.nix
             # Enable home-manager integration
             {
               nixpkgs.config.allowUnfree = true;
