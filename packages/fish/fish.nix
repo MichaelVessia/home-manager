@@ -10,18 +10,10 @@ programs.fish = {
 
 	enable = true;
 
-	interactiveShellInit = pkgs.lib.optionalString pkgs.stdenv.isDarwin ''
+	interactiveShellInit = ''
 		# Source Nix environment
 		if test -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
 			source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
-		end
-		
-		# Add Homebrew to PATH for macOS
-		if test -d /opt/homebrew/bin
-			fish_add_path /opt/homebrew/bin
-		end
-		if test -d /usr/local/bin
-			fish_add_path /usr/local/bin
 		end
 		
 		# Add ~/.local/bin to PATH for user binaries (e.g., Claude CLI)
@@ -32,6 +24,16 @@ programs.fish = {
 		# Load Home Manager session variables
 		if test -f $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
 			bass source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
+		end
+	'' + pkgs.lib.optionalString pkgs.stdenv.isDarwin ''
+		
+		# macOS-specific configurations
+		# Add Homebrew to PATH for macOS
+		if test -d /opt/homebrew/bin
+			fish_add_path /opt/homebrew/bin
+		end
+		if test -d /usr/local/bin
+			fish_add_path /usr/local/bin
 		end
 		
 		# Load FLOCASTS_NPM_TOKEN from secrets
@@ -44,6 +46,12 @@ programs.fish = {
 			set -gx JIRA_API_TOKEN (cat $HOME/home-manager/secrets/jira-api-token | tr -d '\n')
 		end
 	'';
+
+  shellInit = ''
+    if test -e ${pkgs.mise}/bin/mise
+      ${pkgs.mise}/bin/mise activate fish | source
+    end
+  '';
 
 	shellAliases = {
 		".." = "cd ..";

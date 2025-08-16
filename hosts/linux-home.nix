@@ -36,7 +36,7 @@ in
   fonts.fontconfig.enable = true;
   
   # Chezmoi activation
-  home.activation.chezmoi = lib.hm.dag.entryAfter ["installPackages" "generateSshKey"] ''
+  home.activation.chezmoi = lib.hm.dag.entryAfter ["linkGeneration"] ''
     PATH="${pkgs.chezmoi}/bin:${pkgs.git}/bin:${pkgs.git-lfs}/bin:${pkgs.openssh}/bin:''${PATH}"
 
     $DRY_RUN_CMD chezmoi init git@github.com:MichaelVessia/dots.git

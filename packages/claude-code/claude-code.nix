@@ -8,6 +8,9 @@
     gzip
   ];
 
+   # Add ~/.local/bin to PATH so we can run the claude command
+  home.sessionPath = [ "$HOME/.local/bin" ];
+
   # Install Claude Code CLI using official installer and configure settings
   home.activation.installClaudeCLI = lib.hm.dag.entryAfter ["writeBoundary"] ''
     # Check if Claude CLI needs installation
