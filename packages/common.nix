@@ -30,7 +30,6 @@
     
     # System management
     ./fonts/fonts.nix
-    ./home-manager/home-manager.nix
     ./chezmoi/chezmoi.nix
     ./cheatsheets/default.nix
     
