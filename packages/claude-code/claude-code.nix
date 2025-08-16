@@ -1,32 +1,31 @@
 { config, lib, pkgs, ... }:
 
 {
-  # Dependencies needed for Claude CLI installation
+  # Install Node.js to enable npm
   home.packages = with pkgs; [
-    curl
-    gnutar
-    gzip
+    nodejs_20
   ];
 
-  # Install Claude Code CLI using official installer and configure settings
+  # Add npm global bin to PATH for user-installed packages
+  home.sessionPath = [
+    "$HOME/.npm-global/bin"
+  ];
+
+  # Set npm prefix to user directory
+  home.sessionVariables = {
+    NPM_CONFIG_PREFIX = "$HOME/.npm-global";
+  };
+
+  # Install Claude Code CLI using npm and configure settings
   home.activation.installClaudeCLI = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    # Check if Claude CLI needs installation
-    CLAUDE_PATH="$HOME/.local/bin/claude"
-    
-    if [[ -x "$CLAUDE_PATH" ]]; then
-      # Claude CLI is already installed, check if it's working
-      if $CLAUDE_PATH --version &>/dev/null; then
-        CURRENT_VERSION=$($CLAUDE_PATH --version 2>/dev/null)
-        echo "Claude CLI is already installed: $CURRENT_VERSION"
-      else
-        # Install if not working
-        export PATH="${pkgs.curl}/bin:${pkgs.gnutar}/bin:${pkgs.gzip}/bin:/usr/bin:''${PATH}"
-        $DRY_RUN_CMD ${pkgs.curl}/bin/curl -fsSL claude.ai/install.sh | ${pkgs.bash}/bin/bash
-      fi
+    PATH="${pkgs.nodejs_20}/bin:$PATH"
+    export NPM_CONFIG_PREFIX="$HOME/.npm-global"
+
+    if ! command -v claude >/dev/null 2>&1; then
+      echo "Installing Claude Code..."
+      npm install -g @anthropic-ai/claude-code
     else
-      # Install Claude Code CLI using official installer
-      export PATH="${pkgs.curl}/bin:${pkgs.gnutar}/bin:${pkgs.gzip}/bin:/usr/bin:''${PATH}"
-      $DRY_RUN_CMD ${pkgs.curl}/bin/curl -fsSL claude.ai/install.sh | ${pkgs.bash}/bin/bash
+      echo "Claude Code is already installed at $(which claude)"
     fi
     
     # Create/update Claude settings with statusline configuration
