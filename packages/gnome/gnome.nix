@@ -11,7 +11,7 @@
    # Scrolling settings
     "org/gnome/desktop/peripherals/touchpad" = {
       natural-scroll = false;  # Set to true for Mac-like scrolling
-      # tap-to-click = true;     # Optional: enable tap to click
+      tap-to-click = true;     # Optional: enable tap to click
     };
     "org/gnome/desktop/peripherals/mouse" = {
       natural-scroll = false;  # Set to true for Mac-like scrolling
@@ -68,11 +68,11 @@
       ];
     };
 
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
-      name = "UltraWhisper";
-      command = "/home/michaelvessia/.config/ultrawhisper/trigger.sh";
-      binding = "<Primary>grave";
-    };
+    # "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
+    #   name = "UltraWhisper";
+    #   command = "/home/michaelvessia/.config/ultrawhisper/trigger.sh";
+    #   binding = "<Primary>grave";
+    # };
     
     "org/gnome/shell" = {
       enabled-extensions = [

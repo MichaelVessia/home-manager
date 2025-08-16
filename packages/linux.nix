@@ -18,12 +18,13 @@
     
     # AppArmor support
     ./apparmor/apparmor-profiles.nix
+
+    # Stuff for the kids
+    #./kids/kids.nix
   ];
   
   home.packages = with pkgs; [
     # Linux-specific system tools
     xsel # clipboard manager
-    kooha # screen recorder
-    pinta # image editor
   ];
 }
