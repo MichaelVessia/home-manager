@@ -1,43 +1,10 @@
 { config, pkgs, lib, ... }:
 
 {
-  imports = [
-    ./common.nix
-    
-    # Darwin-specific packages
-    ./aws/aws.nix
-    ./jira/jira.nix
-    ./karabiner/karabiner.nix
-  ];
+  # macOS-specific system settings and keybindings
   
-  # macOS-specific packages
-  home.packages = with pkgs; lib.optionals pkgs.stdenv.isDarwin [
-    # Apple SDK frameworks
-    darwin.apple_sdk.frameworks.Security
-    darwin.apple_sdk.frameworks.CoreServices
-    
-    # GNU utilities to replace BSD versions on macOS
-    coreutils # Provides greadlink/readlink with GNU options (-e, -m) needed by Home Manager
-  ];
-
-  # Homebrew configuration
-  home.sessionPath = lib.mkIf pkgs.stdenv.isDarwin [
-    "/opt/homebrew/bin"  # Apple Silicon
-    "/usr/local/bin"     # Intel Mac
-  ];
-  
-  # Homebrew environment variables
-  home.sessionVariables = lib.mkIf pkgs.stdenv.isDarwin {
-    HOMEBREW_NO_ANALYTICS = "1";
-    HOMEBREW_NO_INSECURE_REDIRECT = "1";
-    HOMEBREW_CASK_OPTS = "--require-sha";
-  };
-  
-  # Create homebrew config directory
-  home.file.".config/homebrew/.keep".text = lib.mkIf pkgs.stdenv.isDarwin "";
-
-  # macOS system settings
-  home.activation.macosDefaults = lib.mkIf pkgs.stdenv.isDarwin (lib.hm.dag.entryAfter ["writeBoundary"] ''
+  # macOS defaults (these would need to be applied via defaults write commands)
+  home.activation.macosDefaults = lib.hm.dag.entryAfter ["writeBoundary"] ''
     if [[ "$(uname)" == "Darwin" ]]; then
       # Show battery percentage
       $DRY_RUN_CMD /usr/bin/defaults write com.apple.menuextra.battery ShowPercent -bool true
@@ -102,5 +69,10 @@
       $DRY_RUN_CMD /usr/bin/killall SystemUIServer || true
       $DRY_RUN_CMD /usr/bin/killall Dock || true
     fi
-  '');
+  '';
+  
+  # macOS-specific environment variables
+  home.sessionVariables = lib.mkIf pkgs.stdenv.isDarwin {
+    # Add any macOS-specific environment variables here
+  };
 }

@@ -2,7 +2,7 @@
 
 {
   # Karabiner-Elements configuration for macOS keyboard customization
-  # Note: Karabiner-Elements is installed via Homebrew (see darwin-work.nix homebrew configuration)
+  # Note: Karabiner-Elements is installed via Homebrew (see modules/darwin/brew.nix)
   # This module only manages the configuration files
   
   config = lib.mkIf pkgs.stdenv.isDarwin {

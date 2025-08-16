@@ -1,12 +1,22 @@
-{ lib, pkgs, ... }:
+{ lib, config, pkgs, ... }:
 
 let
-  username = "michael.vessia";
+  # Use actual system username on macOS, configured username on Linux
+  username = if pkgs.stdenv.isDarwin then "michael.vessia" else "michaelvessia";
   platform = import ../lib/platform.nix { inherit lib pkgs; };
 in
 {
   imports = [
-    ../packages/darwin.nix
+    ../modules/common
+    ../modules/darwin
+    ../packages/aws/aws.nix
+    ../packages/claude-code/claude-code.nix
+    ../packages/cursor/cursor.nix
+    ../packages/fonts/fonts.nix
+    ../packages/home-manager/home-manager.nix
+    ../packages/jira/jira.nix
+    ../packages/karabiner/karabiner.nix
+    ../packages/yazi/yazi.nix
   ];
 
   nix = {
@@ -18,6 +28,16 @@ in
     inherit username;
     homeDirectory = platform.homeDirectory username;
     stateVersion = "25.05"; # Don't change this
+    
+    sessionVariables = {
+      TERM = "xterm-256color";
+      PATH = "$HOME/.local/bin:$HOME/scripts:$PATH";
+      FLOCASTS_NPM_TOKEN = 
+        let secretFile = toString ../secrets/flocasts-npm-token;
+        in if builtins.pathExists secretFile 
+           then lib.strings.removeSuffix "\n" (builtins.readFile secretFile)
+           else "";
+    };
   };
   
   # Enable font configuration
@@ -59,15 +79,5 @@ in
       allowUnfree = true;
       allowUnfreePredicate = (_: true);
     };
-  };
-
-  home.sessionVariables = {
-    TERM = "xterm-256color";
-    PATH = "$HOME/.local/bin:$HOME/scripts:$PATH";
-    FLOCASTS_NPM_TOKEN = 
-      let secretFile = toString ../secrets/flocasts-npm-token;
-      in if builtins.pathExists secretFile 
-         then lib.strings.removeSuffix "\n" (builtins.readFile secretFile)
-         else "";
   };
 }

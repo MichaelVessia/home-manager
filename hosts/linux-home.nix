@@ -1,4 +1,4 @@
-{ lib,  pkgs, ... }:
+{ lib, config, pkgs, ... }:
 
 let
   # Share username across various bits of the config
@@ -7,7 +7,13 @@ let
 in
 {
   imports = [
-    ../packages/linux.nix
+    ../modules/common
+    ../modules/linux
+    ../packages/brave/brave.nix
+    ../packages/claude-code/claude-code.nix
+    ../packages/fonts/fonts.nix
+    ../packages/home-manager/home-manager.nix
+    ../packages/yazi/yazi.nix
   ];
 
   nix = {
@@ -80,5 +86,4 @@ in
       allowUnfreePredicate = (_: true);
     };
   };
-
 }
