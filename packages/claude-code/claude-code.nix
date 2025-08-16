@@ -39,19 +39,20 @@
     $DRY_RUN_CMD mkdir -p $HOME/.claude/commands
     # Copy command files from static sources
     echo "Creating Claude command files..."
-    $DRY_RUN_CMD cp ${./commands/diff-bugs.md} $HOME/.claude/commands/diff-bugs.md
-    $DRY_RUN_CMD cp ${./commands/branch-bugs.md} $HOME/.claude/commands/branch-bugs.md
-    $DRY_RUN_CMD cp ${./commands/commit-push-pr.md} $HOME/.claude/commands/commit-push-pr.md
-    $DRY_RUN_CMD cp ${./commands/commit-all.md} $HOME/.claude/commands/commit-all.md
-    $DRY_RUN_CMD cp ${./commands/commit-chunks.md} $HOME/.claude/commands/commit-chunks.md
-    $DRY_RUN_CMD cp ${./commands/commit-and-push.md} $HOME/.claude/commands/commit-and-push.md
-    $DRY_RUN_CMD cp ${./commands/resolve-conflicts.md} $HOME/.claude/commands/resolve-conflicts.md
+    $DRY_RUN_CMD cp -f ${./commands/diff-bugs.md} $HOME/.claude/commands/diff-bugs.md
+    $DRY_RUN_CMD cp -f ${./commands/branch-bugs.md} $HOME/.claude/commands/branch-bugs.md
+    $DRY_RUN_CMD cp -f ${./commands/commit-push-pr.md} $HOME/.claude/commands/commit-push-pr.md
+    $DRY_RUN_CMD cp -f ${./commands/commit-all.md} $HOME/.claude/commands/commit-all.md
+    $DRY_RUN_CMD cp -f ${./commands/commit-chunks.md} $HOME/.claude/commands/commit-chunks.md
+    $DRY_RUN_CMD cp -f ${./commands/commit-and-push.md} $HOME/.claude/commands/commit-and-push.md
+    $DRY_RUN_CMD cp -f ${./commands/resolve-conflicts.md} $HOME/.claude/commands/resolve-conflicts.md
+    $DRY_RUN_CMD cp -f ${./commands/implement-jira.md} $HOME/.claude/commands/implement-jira.md
     
     # Install the statusline script with proper permissions
     $DRY_RUN_CMD install -m 755 ${toString ./claude-statusline.sh} $HOME/.claude/claude-statusline
     
     # Copy static settings.json file
-    $DRY_RUN_CMD cp ${./settings.json} $HOME/.claude/settings.json
+    $DRY_RUN_CMD cp -f ${./settings.json} $HOME/.claude/settings.json
   '';
   # Note: Both the statusline script and settings.json are created in the
   # activation script above to ensure they run AFTER the Claude CLI installer
