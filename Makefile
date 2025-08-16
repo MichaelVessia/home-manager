@@ -12,10 +12,10 @@ darwin: darwin-system darwin-home
 darwin-system:
 	@if command -v darwin-rebuild >/dev/null 2>&1; then \
 		echo "Activating nix-darwin system configuration..."; \
-		sudo darwin-rebuild switch --flake .#work-mac; \
+		sudo darwin-rebuild switch --flake .#macbook; \
 	else \
 		echo "Installing nix-darwin first..."; \
-		sudo nix run nix-darwin -- switch --flake .#work-mac; \
+		sudo nix run nix-darwin -- switch --flake .#macbook; \
 	fi
 
 # Home Manager configuration for darwin (no sudo required)
@@ -35,10 +35,10 @@ force-update-linux:
 force-update-darwin:
 	@if command -v darwin-rebuild >/dev/null 2>&1; then \
 		echo "Force updating nix-darwin system configuration..."; \
-		sudo darwin-rebuild switch --flake .#work-mac; \
+		sudo darwin-rebuild switch --flake .#macbook; \
 	else \
 		echo "Installing nix-darwin first..."; \
-		sudo nix run nix-darwin -- switch --flake .#work-mac; \
+		sudo nix run nix-darwin -- switch --flake .#macbook; \
 	fi
 	@echo "Force updating Home Manager configuration..."
 	home-manager switch --flake .#michaelvessia@darwin -b backup-$(shell date +%Y%m%d-%H%M%S)
