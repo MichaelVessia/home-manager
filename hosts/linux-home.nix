@@ -7,8 +7,35 @@ let
 in
 {
   imports = [
-    ../modules/common
-    ../modules/linux
+    # Common packages (from modules/common)
+    ../packages/fish/fish.nix
+    ../packages/nushell/nushell.nix
+    ../packages/starship/starship.nix
+    ../packages/neovim/neovim.nix
+    ../packages/obsidian/obsidian.nix
+    ../packages/spotify/spotify.nix
+    ../packages/git/git.nix
+    ../packages/mise/mise.nix
+    ../packages/bun/bun.nix
+    ../packages/cursor/cursor.nix
+    ../packages/cheatsheets/default.nix
+    ../packages/chezmoi/chezmoi.nix
+    ../packages/lazygit/lazygit.nix
+    ../packages/ghostty/ghostty.nix
+    
+    # Linux-specific packages (from modules/linux)
+    ../packages/apparmor/apparmor-profiles.nix
+    ../packages/nixgl/nixgl.nix
+    ../packages/signal-desktop/signal-desktop.nix
+    ../packages/bitwarden/bitwarden.nix
+    ../packages/tailscale/tailscale.nix
+    ../packages/syncthing/syncthing.nix
+    ../packages/media/media.nix
+    ../packages/gnome/gnome.nix
+    ../packages/gnome-extensions/gnome-extensions.nix
+    ../packages/gnome-network-displays/gnome-network-displays.nix
+    
+    # Originally imported at host level
     ../packages/brave/brave.nix
     ../packages/claude-code/claude-code.nix
     ../packages/fonts/fonts.nix
@@ -86,4 +113,72 @@ in
       allowUnfreePredicate = (_: true);
     };
   };
+
+  # Packages previously defined in modules
+  home.packages = with pkgs; [
+    # From modules/common/shell.nix
+    atuin # Replacement for shell history
+    
+    # From modules/common/development.nix  
+    gcc # C compiler
+    gnumake # Build automation tool
+    ast-grep # structured grep for code
+    curl # data transfer tool
+    wget # web file downloader
+    jq # JSON processor
+    unzip # archive extractor
+    
+    # From modules/common/git.nix
+    gh # GitHub CLI
+    git-lfs # Git Large File Storage
+    lazygit # Git TUI
+    delta # Syntax-highlighting pager for git diffs
+    
+    # From modules/common/utilities.nix
+    # System monitoring
+    htop # interactive process viewer (better than top)
+    glances # Lists all processes + cpu/memory
+    lsof # list open files and network connections
+    
+    # File utilities
+    bat # syntax-highlighted file previews
+    eza # modern ls replacement
+    fd # fast file finder (better than find)
+    fzf # fuzzy finder
+    ripgrep # fast text search (better than grep)
+    
+    # Networking and security  
+    nmap # network discovery and security auditing
+    traceroute # trace network route to a host
+    whois # domain lookup tool
+    rsync # fast file synchronization tool
+    openssh # SSH client/server
+    gnupg # OpenPGP implementation
+    
+    # Archive and compression
+    zip # zip compression
+    p7zip # 7-Zip file archiver
+    
+    # Text processing
+    tree # directory tree viewer
+    watch # run commands repeatedly
+    less # pager program
+    
+    # Development utilities
+    direnv # automatic environment management
+    
+    # From modules/linux/packages.nix - Linux-specific packages
+    xsel # clipboard manager (Linux-specific)
+    kooha # screen recorder (Linux-specific)
+    pinta # image editor
+    ffmpeg # video/audio converter
+  ];
+
+  # Auto-start fish from bash (from modules/common/shell.nix)
+  home.file.".bashrc".text = lib.mkAfter ''
+    if [[ $(ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
+    then
+      exec fish
+    fi
+  '';
 }
