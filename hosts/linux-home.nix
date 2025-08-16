@@ -7,13 +7,11 @@ let
 in
 {
   imports = [
-    ../modules/common
-    ../modules/linux
-    ../packages/brave/brave.nix
+    ../packages/common.nix
+    ../packages/linux.nix
     ../packages/claude-code/claude-code.nix
     ../packages/fonts/fonts.nix
     ../packages/home-manager/home-manager.nix
-    ../packages/yazi/yazi.nix
   ];
 
   nix = {

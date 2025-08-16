@@ -3,6 +3,9 @@
 {
   home.packages = with pkgs; [
     git
+    gh # GitHub CLI
+    git-lfs # Git Large File Storage
+    delta # Syntax-highlighting pager for git diffs
   ];
 
   programs.git = {

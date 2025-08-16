@@ -7,16 +7,11 @@ let
 in
 {
   imports = [
-    ../modules/common
-    ../modules/darwin
-    ../packages/aws/aws.nix
+    ../packages/common.nix
+    ../packages/darwin.nix
     ../packages/claude-code/claude-code.nix
-    ../packages/cursor/cursor.nix
     ../packages/fonts/fonts.nix
     ../packages/home-manager/home-manager.nix
-    ../packages/jira/jira.nix
-    ../packages/karabiner/karabiner.nix
-    ../packages/yazi/yazi.nix
   ];
 
   nix = {
