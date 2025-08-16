@@ -8,8 +8,7 @@
     ./jira/jira.nix
     ./karabiner/karabiner.nix
     
-    # Homebrew integration and system settings
-    ./darwin-brew.nix
+    # System settings and Homebrew integration
     ./darwin-system.nix
   ];
   
