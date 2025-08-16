@@ -1,10 +1,11 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   home.packages = with pkgs; [
     mise
-    gnupg  # Required for yarn plugin
-    libyaml  # Required for Ruby psych extension
+  ] ++ lib.optionals pkgs.stdenv.isDarwin [
+    gnupg  # Required for yarn plugin (macOS only)
+    libyaml  # Required for Ruby psych extension (macOS only)
   ];
   
   # Add mise to shell initialization
@@ -22,14 +23,16 @@
   home.file.".config/mise/config.toml".text = ''
     [tools]
     node = "lts"
-    ruby = "3.3.6"
+    ${lib.optionalString pkgs.stdenv.isDarwin "ruby = \"3.3.6\""}
     
     [settings]
-    idiomatic_version_file_enable_tools = ["node", "yarn", "ruby"]
+    idiomatic_version_file_enable_tools = [${lib.concatStringsSep ", " (
+      ["\"node\""] ++ lib.optionals pkgs.stdenv.isDarwin ["\"yarn\"" "\"ruby\""]
+    )}]
   '';
   
-  # Install yarn plugin on activation
-  home.activation.installMiseYarnPlugin = ''
+  # Install yarn plugin on activation (macOS only)
+  home.activation.installMiseYarnPlugin = lib.mkIf pkgs.stdenv.isDarwin ''
     $VERBOSE_ECHO "Installing mise yarn plugin..."
     $DRY_RUN_CMD ${pkgs.mise}/bin/mise plugin install yarn || true
   '';
