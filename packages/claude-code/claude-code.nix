@@ -222,7 +222,7 @@ Help resolve merge conflicts by:
 EOF
     
     # Install the statusline script with proper permissions
-    $DRY_RUN_CMD install -m 755 ${toString ../../scripts/claude-statusline.sh} $HOME/.claude/claude-statusline
+    $DRY_RUN_CMD install -m 755 ${toString ./claude-statusline.sh} $HOME/.claude/claude-statusline
     
     # Create settings.json
     $DRY_RUN_CMD cat > $HOME/.claude/settings.json << 'EOF'

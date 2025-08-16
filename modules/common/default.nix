@@ -9,6 +9,5 @@
     ./terminal.nix
     ./apps.nix
     ./utilities.nix
-    ./claude.nix
   ];
 }
