@@ -68,11 +68,11 @@
       ];
     };
 
-    # "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
-    #   name = "UltraWhisper";
-    #   command = "/home/michaelvessia/.config/ultrawhisper/trigger.sh";
-    #   binding = "<Primary>grave";
-    # };
+     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
+       name = "UltraWhisper Toggle";
+       command = "/home/michaelvessia/projects/ultrawhisper/bin/ultrawhisper-toggle";
+       binding = "<Primary>grave";
+     };
     
     "org/gnome/shell" = {
       enabled-extensions = [

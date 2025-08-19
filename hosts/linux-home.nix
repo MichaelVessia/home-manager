@@ -26,7 +26,7 @@ in
     
     sessionVariables = {
       TERM = "xterm-256color";
-      PATH = "$HOME/.local/bin:$HOME/scripts:$PATH";
+      PATH = "$HOME/.local/bin:$HOME/scripts:$HOME/projects/ultrawhisper/bin:$PATH";
     };
   };
   

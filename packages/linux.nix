@@ -10,6 +10,7 @@
     ./syncthing/syncthing.nix
     ./media/media.nix
     ./brave/brave.nix
+    ./ultrawhisper/ultrawhisper.nix
     
     # GNOME-related packages
     ./gnome/gnome.nix

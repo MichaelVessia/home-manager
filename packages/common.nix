@@ -27,6 +27,7 @@
   
   home.packages = with pkgs; [
     # System monitoring
+    btop
     htop
     glances
     lsof
