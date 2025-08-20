@@ -53,11 +53,11 @@
     
     # Copy static settings.json file
     $DRY_RUN_CMD cp -f ${./settings.json} $HOME/.claude/settings.json
+    
+    # Copy static CLAUDE.md file
+    $DRY_RUN_CMD cp -f ${./claude-guidelines.md} $HOME/.claude/CLAUDE.md
   '';
-  # Note: Both the statusline script and settings.json are created in the
+  # Note: The statusline script, settings.json, and CLAUDE.md are all created in the
   # activation script above to ensure they run AFTER the Claude CLI installer
-
-  # Create ~/.claude/CLAUDE.md with development guidelines from static file
-  home.file.".claude/CLAUDE.md".source = ./claude-guidelines.md;
 
 }
