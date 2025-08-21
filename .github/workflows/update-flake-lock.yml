@@ -24,4 +24,4 @@ jobs:
           pr-labels: |
             dependencies
             automated
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_FLAKE_UPDATE_TOKEN }}
