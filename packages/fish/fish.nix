@@ -204,104 +204,108 @@ programs.fish = {
 
 		num = '' 
 		function num 
-			ls -1 $argv | wc -l;
-		end
-		'';
+      ls -1 $argv | wc -l;
+    end
+      '';
 
-		wg = '' 
-		function wg
-	    set -l num_args (count $argv)
+      wg = '' 
+    function wg
+      set -l num_args (count $argv)
 
-	    if test $num_args -eq 1
-	        wget -c $argv[1]
+      if test $num_args -eq 1
+          wget -c $argv[1]
 
-	    else if test $num_args -eq 2
-	        # arg1 = name, arg2 = url
-	        wget -c -O $argv[1] $argv[2]
+      else if test $num_args -eq 2
+          # arg1 = name, arg2 = url
+          wget -c -O $argv[1] $argv[2]
 
-	    else
-	        echo "Incorrect number of arguments"
-	    end
-		end
-		'';
+      else
+          echo "Incorrect number of arguments"
+      end
+    end
+      '';
 
-		ytarchive = '' 
-		function ytarchive
-		 yt-dlp -f bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best -o '%(upload_date)s - %(channel)s - %(id)s - %(title)s.%(ext)s' \
-		 --sponsorblock-mark "all" \
-		 --geo-bypass \
-		 --sub-langs 'all' \
-		 --embed-subs \
-		 --embed-metadata \
-		 --convert-subs 'srt' \
-		 --download-archive $argv[1].txt https://www.youtube.com/$argv[1]/videos; 
-		end
-		'';
-
-		ytarchivevideo = '' 
-		function ytarchivevideo
-		  yt-dlp -f bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best -o '%(upload_date)s - %(channel)s - %(id)s - %(title)s.%(ext)s' \
-		 --sponsorblock-mark "all" \
-		 --geo-bypass \
-		 --sub-langs 'all' \
-		 --embed-metadata \
-		 --convert-subs 'srt' \
-		 --download-archive $argv[1] $argv[2]; 
-		end
-		'';
-
-		ytd = '' 
-		function ytd
+      ytarchive = '' 
+    function ytarchive
      yt-dlp -f bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best -o '%(upload_date)s - %(channel)s - %(id)s - %(title)s.%(ext)s' \
-		 --sponsorblock-mark "all" \
-		 --geo-bypass \
-		 --sub-langs 'all' \
-		 --embed-subs \
-		 --embed-metadata \
-		 --convert-subs 'srt' \
-		 $argv
-		end
-		'';
+     --sponsorblock-mark "all" \
+     --geo-bypass \
+     --sub-langs 'all' \
+     --embed-subs \
+     --embed-metadata \
+     --convert-subs 'srt' \
+     --download-archive $argv[1].txt https://www.youtube.com/$argv[1]/videos; 
+    end
+      '';
 
-		ytarchiveplaylists = ''
-		function ytarchiveplaylists
-		 yt-dlp --yes-playlist -f best -ciw \
-		 -o "/downloads/youtube-dl/%(uploader)s/playlists/%(playlist)s/videos/%(playlist_index)s - %(title)s.%(ext)s" \
-		 -v $argv
-		end
-		'';
-	};
+      ytarchivevideo = '' 
+    function ytarchivevideo
+      yt-dlp -f bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best -o '%(upload_date)s - %(channel)s - %(id)s - %(title)s.%(ext)s' \
+     --sponsorblock-mark "all" \
+     --geo-bypass \
+     --sub-langs 'all' \
+     --embed-metadata \
+     --convert-subs 'srt' \
+     --download-archive $argv[1] $argv[2]; 
+    end
+      '';
 
-};
+      ytd = '' 
+    function ytd
+     yt-dlp -f bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best -o '%(upload_date)s - %(channel)s - %(id)s - %(title)s.%(ext)s' \
+     --sponsorblock-mark "all" \
+     --geo-bypass \
+     --sub-langs 'all' \
+     --embed-subs \
+     --embed-metadata \
+     --convert-subs 'srt' \
+     $argv
+    end
+      '';
 
-programs.fzf = {
-	enable = true;
-	enableFishIntegration = true;
-	
-	defaultOptions = [
-		"--height 40%"
-		"--layout=reverse"
-		"--border"
-	];
-	
-	fileWidgetOptions = [
-		"--preview 'bat --color=always --style=numbers --line-range=:500 {} 2>/dev/null || echo {}'"
-	];
-	
-	changeDirWidgetOptions = [
-		"--preview 'eza --tree --level=2 --color=always {} 2>/dev/null || echo {}'"
-	];
-	
-	defaultCommand = "fd --type f --hidden --follow --exclude .git";
-	fileWidgetCommand = "fd --type f --hidden --follow --exclude .git";
-	changeDirWidgetCommand = "fd --type d --hidden --follow --exclude .git";
-};
+      ytarchiveplaylists = ''
+    function ytarchiveplaylists
+     yt-dlp --yes-playlist -f best -ciw \
+     -o "/downloads/youtube-dl/%(uploader)s/playlists/%(playlist)s/videos/%(playlist_index)s - %(title)s.%(ext)s" \
+     -v $argv
+    end
+      '';
+    };
 
-programs.zoxide = {
-	enable = true;
-	enableFishIntegration = true;
-	options = [
-		"--cmd cd"  # This makes 'cd' command use zoxide
-	];
-};
+  };
+
+  programs.fzf = {
+    enable = true;
+    enableFishIntegration = true;
+
+    defaultOptions = [
+      "--height 40%"
+      "--layout=reverse"
+      "--border"
+    ];
+
+    fileWidgetOptions = [
+      "--preview 'bat --color=always --style=numbers --line-range=:500 {} 2>/dev/null || echo {}'"
+    ];
+
+    changeDirWidgetOptions = [
+      "--preview 'eza --tree --level=2 --color=always {} 2>/dev/null || echo {}'"
+    ];
+
+    defaultCommand = "fd --type f --hidden --follow --exclude .git";
+    fileWidgetCommand = "fd --type f --hidden --follow --exclude .git";
+    changeDirWidgetCommand = "fd --type d --hidden --follow --exclude .git";
+  };
+
+  programs.zoxide = {
+    enable = true;
+    enableFishIntegration = true;
+    options = [
+      "--cmd cd"  # This makes 'cd' command use zoxide
+    ];
+  };
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
 }

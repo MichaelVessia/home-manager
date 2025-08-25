@@ -47,6 +47,8 @@
     gnumake
     ast-grep
     devbox
+    nix-direnv
+
     
     # Common tools
     curl
