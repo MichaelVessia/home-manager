@@ -48,6 +48,7 @@
     ast-grep
     devbox
     nix-direnv
+    nodejs_22
 
     
     # Common tools
