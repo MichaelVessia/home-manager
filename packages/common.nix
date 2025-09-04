@@ -49,6 +49,7 @@
     devbox
     nix-direnv
     nodejs_22
+    git-town
 
     
     # Common tools
