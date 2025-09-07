@@ -22,10 +22,17 @@
 
     # Stuff for the kids
     #./kids/kids.nix
+
+    # Entertainment
+    ./steam/steam.nix
   ];
   
   home.packages = with pkgs; [
     # Linux-specific system tools
     xsel # clipboard manager
+    
+    # Playwright dependencies - install playwright with system dependencies
+    playwright-driver
+    playwright
   ];
 }
