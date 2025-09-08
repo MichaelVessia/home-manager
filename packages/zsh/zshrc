@@ -52,11 +52,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   fi
 fi
 
-# Mise activation
-if command -v mise >/dev/null 2>&1; then
-  eval "$(mise activate zsh)"
-fi
-
 # Load custom functions
 if [ -f ~/.config/zsh/functions.zsh ]; then
   source ~/.config/zsh/functions.zsh

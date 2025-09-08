@@ -7,7 +7,6 @@
     ./spotify/spotify.nix
     
     # Development tools
-    ./mise/mise.nix
     ./bun/bun.nix
     ./neovim/neovim.nix
     ./git/git.nix
