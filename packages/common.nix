@@ -13,7 +13,7 @@
     ./git/git.nix
     
     # Shell & terminal
-    ./fish/fish.nix
+    ./zsh/zsh.nix
     ./nushell/nushell.nix
     ./starship/starship.nix
     ./ghostty/ghostty.nix
@@ -66,12 +66,4 @@
   home.sessionVariables = {
     EDITOR = "nvim";
   };
-  
-  # Auto-start fish from bash
-  home.file.".bashrc".text = lib.mkAfter ''
-    if [[ $(ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
-    then
-      exec fish
-    fi
-  '';
 }
