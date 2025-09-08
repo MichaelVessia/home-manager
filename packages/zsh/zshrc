@@ -17,7 +17,7 @@ fi
 if [[ -f ~/.nix-profile/share/oh-my-zsh/oh-my-zsh.sh ]]; then
   export ZSH="$HOME/.nix-profile/share/oh-my-zsh"
   ZSH_THEME="robbyrussell"
-  plugins=(git docker kubectl npm node z colored-man-pages command-not-found history-substring-search)
+  plugins=(fzf git docker kubectl npm node z colored-man-pages command-not-found history-substring-search)
   source ~/.nix-profile/share/oh-my-zsh/oh-my-zsh.sh
 fi
 
