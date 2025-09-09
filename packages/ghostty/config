@@ -43,3 +43,9 @@ keybind = ctrl+a>n=next_tab
 keybind = ctrl+a>t=toggle_tab_overview
 keybind = ctrl+a>-=new_split:down
 keybind = ctrl+a>shift+\=new_split:right
+
+# Split navigation
+keybind = ctrl+h=goto_split:left
+keybind = ctrl+j=goto_split:down
+keybind = ctrl+k=goto_split:up
+keybind = ctrl+l=goto_split:right
