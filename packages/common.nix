@@ -10,6 +10,7 @@
     ./bun/bun.nix
     ./neovim/neovim.nix
     ./git/git.nix
+    ./direnv/direnv.nix
     
     # Shell & terminal
     ./zsh/zsh.nix
@@ -40,6 +41,7 @@
     tree
     ncdu
     atuin
+    zoxide
     
     # Development utilities  
     gcc
