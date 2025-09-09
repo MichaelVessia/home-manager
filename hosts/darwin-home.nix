@@ -26,7 +26,7 @@ in
     
     sessionVariables = {
       TERM = "xterm-256color";
-      PATH = "$HOME/.local/share/mise/shims:$HOME/.local/bin:$HOME/scripts:$PATH";
+      PATH = "$HOME/.local/bin:$HOME/scripts:$PATH";
       FLOCASTS_NPM_TOKEN = 
         let secretFile = toString ../secrets/flocasts-npm-token;
         in if builtins.pathExists secretFile 

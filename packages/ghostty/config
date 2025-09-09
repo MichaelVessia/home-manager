@@ -3,7 +3,7 @@ font-family = JetBrains Mono
 font-size = 12
 
 # Theme (dark or light)
-theme = dark:catppuccin-frappe,light:catppuccin-latte
+theme = dark:catppuccin-frappe,light:novel
 
 # Background opacity (0.0 to 1.0, where 1.0 is fully opaque)
 background-opacity = 1.0
@@ -19,10 +19,7 @@ cursor-style = block
 bold-is-bright = true
 
 # Shell integration
-shell-integration = fish
-
-# Default shell command (platform-specific, will be templated)
-command = SHELL_COMMAND_PLACEHOLDER
+shell-integration = zsh
 
 # Tab management keybindings with leader key (ctrl+a)
 keybind = ctrl+a>1=goto_tab:1
@@ -44,3 +41,11 @@ keybind = ctrl+a>l=move_tab:1
 keybind = ctrl+a>p=previous_tab
 keybind = ctrl+a>n=next_tab
 keybind = ctrl+a>t=toggle_tab_overview
+keybind = ctrl+a>-=new_split:down
+keybind = ctrl+a>shift+\=new_split:right
+
+# Split navigation
+keybind = ctrl+h=goto_split:left
+keybind = ctrl+j=goto_split:down
+keybind = ctrl+k=goto_split:up
+keybind = ctrl+l=goto_split:right
