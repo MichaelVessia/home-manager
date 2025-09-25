@@ -33,6 +33,7 @@
       "chatgpt"
       "openlens"
       "yaak"
+      "bruno"
       "orbstack"
       "zoom"
       # GUI Applications without SHA checksums

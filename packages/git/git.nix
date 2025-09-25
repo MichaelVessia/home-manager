@@ -21,6 +21,7 @@
     extraConfig = {
       url."git@github.com:".insteadOf = "https://github.com/";
       push.autoSetupRemote = true;
+      core.editor = "nvim";
     };
     delta = {
       enable = true;
