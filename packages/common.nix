@@ -43,7 +43,7 @@
     atuin
     zoxide
     
-    # Development utilities  
+    # Development utilities
     gcc
     gnumake
     ast-grep
@@ -51,6 +51,7 @@
     nix-direnv
     nodejs_22
     git-town
+    k6
 
     
     # Common tools

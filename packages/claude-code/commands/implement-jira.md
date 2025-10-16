@@ -11,7 +11,7 @@ description: Pull Jira ticket details and create implementation plan
 
 ## Your task
 
-Use the Jira CLI to pull ticket information and create an implementation plan:
+Use the Jira CLI to pull ticket information and create an implementation plan in docs/plans/{ticket-id}-plan.md:
 
 1. Extract the Jira ticket ID from the command arguments (e.g., "PROJ-123")
 2. Use `jira issue view <ticket-id>` to fetch the ticket details including:
