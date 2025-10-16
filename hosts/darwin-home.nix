@@ -23,16 +23,16 @@ in
     inherit username;
     homeDirectory = platform.homeDirectory username;
     stateVersion = "25.05"; # Don't change this
-    
-    sessionVariables = {
-      TERM = "xterm-256color";
-      PATH = "$HOME/.local/bin:$HOME/scripts:$PATH";
-      FLOCASTS_NPM_TOKEN = 
-        let secretFile = toString ../secrets/flocasts-npm-token;
-        in if builtins.pathExists secretFile 
-           then lib.strings.removeSuffix "\n" (builtins.readFile secretFile)
-           else "";
-    };
+  };
+
+  home.sessionVariables = {
+    TERM = "xterm-256color";
+    PATH = "$HOME/.local/bin:$HOME/scripts:$PATH";
+    FLOCASTS_NPM_TOKEN =
+      let secretFile = toString ../secrets/flocasts-npm-token;
+      in if builtins.pathExists secretFile
+         then lib.strings.removeSuffix "\n" (builtins.readFile secretFile)
+         else "";
   };
   
   # Enable font configuration
