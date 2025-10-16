@@ -10,6 +10,6 @@
   home.activation.ghostty = lib.hm.dag.entryAfter ["writeBoundary"] ''
     $DRY_RUN_CMD mkdir -p $HOME/.config/ghostty/themes
     $DRY_RUN_CMD cp -f ${./config} $HOME/.config/ghostty/config
-    $DRY_RUN_CMD cp -f ${./catppuccin-frappe.conf} $HOME/.config/ghostty/themes/catppuccin-frappe.conf
+    $DRY_RUN_CMD cp -f ${./catppuccin-frappe} $HOME/.config/ghostty/themes/catppuccin-frappe
   '';
 }
