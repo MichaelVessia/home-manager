@@ -33,6 +33,11 @@ in
       in if builtins.pathExists secretFile
          then lib.strings.removeSuffix "\n" (builtins.readFile secretFile)
          else "";
+    SLACK_SERVICE_TOKEN =
+      let secretFile = toString ../secrets/slack-service-token;
+      in if builtins.pathExists secretFile
+         then lib.strings.removeSuffix "\n" (builtins.readFile secretFile)
+         else "";
   };
   
   # Enable font configuration
