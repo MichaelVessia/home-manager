@@ -1,5 +1,7 @@
 # Home Manager Configuration
 
+> **⚠️ DEPRECATED**: This repository is no longer maintained. I've switched to using [nix-darwin](https://github.com/LnL7/nix-darwin) in my [nixos-config](https://github.com/MichaelVessia/nixos-config) repository, which provides unified configuration for both macOS and NixOS systems.
+
 This repository contains my [Home Manager](https://github.com/nix-community/home-manager) configuration for declarative user environment management on NixOS/Linux systems.
 
 ## Structure
